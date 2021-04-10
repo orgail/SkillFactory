@@ -1660,25 +1660,132 @@ print(list(sorted(xs.items(), key=lambda x: x[1])))
 print(list(sorted(xs.items())))
 # print(list(sorted(xs.items(), value=lambda x: x[1])))
 
+>>> x = 1
+>>> isinstance(x, int)
+# True
+>>> x = [1, 2, 3]
+>>> isinstance(x, list)
+# True
+>>> x = (1, 2, 3)
+>>> isinstance(x, tuple)
+# True
+
+# Проверим, является ли строка 'Hello' одним из типов, описанных в параметре type
+>>> isinstance('Hello', (float, int, str, list, dict, tuple))
+# True
+
+# Проверка, на принадлежность к экземпляром myObj
+class myObj:
+  name = "John"
+
+y = myObj()
+>>> isinstance(y, myObj)
+# True
+
+
+
+
+class India():
+    def capital(self):
+        print("New Delhi is the capital of India.")
+
+    def language(self):
+        print("Hindi is the most widely spoken language of India.")
+
+    def type(self):
+        print("India is a developing country.")
+
+
+class USA():
+    def capital(self):
+        print("Washington, D.C. is the capital of USA.")
+
+    def language(self):
+        print("English is the primary language of USA.")
+
+    def type(self):
+        print("USA is a developed country.")
+
+
+def func(obj):
+    obj.capital()
+    obj.language()
+    obj.type()
+
+
+obj_ind = India()
+obj_usa = USA()
+
+func(obj_ind)
+func(obj_usa)
+
+
+
+class User:
+    number_of_fingers = 5
+    number_of_eyes = 2
+
+lancelot = User()
+print(lancelot.number_of_fingers)
+
+
+class User:
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+peter = User(name="Peter Robertson", email="peterrobertson@mail.com")
+julia = User(name="Julia Donaldson", email="juliadonaldson@mail.com")
+
+print(peter.name)
+print(julia.email)
+
+
+
+class Event:
+    def __init__(self, timestamp, event_type, session_id):
+        self.timestamp = timestamp
+        self.type = event_type
+        self.session_id = session_id
+events = [
+    {
+     "timestamp": 1554583508000,
+     "type": "itemViewEvent",
+     "session_id": "@:NynteeXG:MYlskrqZbcmXNSFEJaZIsNVGeDLLpmct",
+    },
+    {
+     "timestamp": 1555296337000,
+     "type": "itemViewEvent",
+     "session_id": "@:NynteeXG:MYlskrqZbcmXNSFEJaZIsNVGeDLLpmct",
+    },
+    {
+     "timestamp": 1549461608000,
+     "type": "itemBuyEvent",
+     "session_id": "@:NynteeXG:MYlskrqZbcmXNSFEJaZIsNVGeDLLpmct",
+    },
+]
+
+
+for event in events:
+    event_obj = Event(timestamp=event.get("timestamp"),
+	              event_type=event.get("type"),
+		      session_id=event.get("session_id"))
+    print(event_obj.timestamp)
+
+
+class A:
+    def some_method(self):
+        print('some_method A')
+
+class B(A):
+    def some_method(self):
+        super().some_method()
+        print('some_method B')
+
+x = B()
+x.some_method()
+
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
