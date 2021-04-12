@@ -1785,46 +1785,203 @@ class B(A):
 x = B()
 x.some_method()
 
+
+
+class Square:
+    def __init__(self, side):
+        self.side = side
+
+class SquareFactory:
+    @staticmethod
+    def create_square(side):
+        return Square(side)
+
+
+sq1 = SquareFactory.create_square(7)
+print(sq1.side)
+
+
+
+
+# @property  декоратор
+# создадим класс собаки
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    # создадим свойство human_age, которое будет переводить возраст животного в человеческий
+    @property  # тот самый магический декоратор
+    def human_age(self):
+        return self.age * 7.3
+
+
+jane = Dog("jane", 4)
+# т.к. метод помечен декоратором property, то нам не надо вызывать этот метод чтобы получить результат
+print(jane.human_age)
+
+
+
+class Dog:
+    _happiness = 10
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @property
+    def human_age(self):
+        return self.age * 7.3
+
+    # добавим новое поле - шкала счастья
+    @property
+    def happiness(self):
+        return self._happiness
+
+    # с помощью декоратора setter мы можем неявно передать во второй
+    # аргумент значение, находящееся справа от равно, а не закидывать это
+    # значение в скобки, как мы это делали в модуле C1, когда не знали о
+    # декораторах класса
+    @happiness.setter
+    # допустим, мы хотим, чтобы счастье питомца измерялось шкалой от 0 до 100
+    def happiness(self, value):
+        if value <= 100 and value >= 0:
+            self._happiness = value
+        else:
+            raise ValueError("Happiness must be between 0 ... 100")
+
+
+jane = Dog("jane", 4)
+jane.happiness = 100  # осчастливим нашу собаку < :
+print(jane.happiness)
+
+
+
+
+class ParentClass:
+
+    @classmethod
+    def method(cls, arg):
+        print("%s classmethod. %d" % (cls.__name__, arg))
+
+    @classmethod
+    def call_original_method(cls):
+        cls.method(5)
+
+    def call_class_method(self):
+        self.method(10)
+
+
+class ChildClass(ParentClass):
+
+    @classmethod
+    def call_original_method(cls):
+        cls.method(6)
+
+
+# Вызываем методы класса через класс.
+ParentClass.method(0)  # ParentClassclassmethod. 0
+ParentClass.call_original_method()  # ParentClassclassmethod. 5
+
+ChildClass.method(0)  # ChildClassclassmethod. 0
+ChildClass.call_original_method()  # ChildClassclassmethod. 6
+
+# Вызываем методы класса через объект.
+my_obj = ParentClass()
+my_obj.method(1)  # ParentClassclassmethod. 1
+my_obj.call_class_method()  # ParentClassclassmethod. 10
+
+
+
+class Square:
+    _a = None
+    def __init__(self, a):
+        self.a = a
+    @property
+    def a(self):
+        return self._a
+    @a.setter
+    def a(self, value):
+        if value > 0:
+            self._a = value
+    @property
+    def area(self):
+        return self.a**2
+
+
+
+try:  # Добавляем конструкцию try-except для отлова нашей ошибки
+    print("Перед исключением")
+    # теперь пользователь сам вводит числа для деления
+    a = int(input("a: "))
+    b = int(input("b: "))
+    c = a / b  # здесь может возникнуть исключение деления на ноль
+    print(c)  # печатаем c = a / b если всё хорошо
+except ZeroDivisionError as e:  # Добавляем тип именно той ошибки которую хотим отловить.
+    print(e)  # Выводим информацию об ошибке
+    print("После исключения")
+
+print("После После исключения")
+
+
+try:
+    *ваш код*
+except Ошибка:
+    *Код отлова*
+else:
+    *Код, который выполнится если всё хорошо прошло в блоке try*
+finally:
+    *Код, который выполнится по любому*
+
+
+try:
+    print("Перед исключением")
+    a = int(input("a: "))
+    b = int(input("b: "))
+    c = a / b
+    print(c)  # печатаем c = a / b если всё хорошо
+except ZeroDivisionError as e:
+    print("После исключения")
+else:  # код в блоке else выполняется только в том случае, если код в блоке try выполнился успешно (т.е. не вылетело никакого исключения).
+    print("Всё ништяк")
+finally:  # код в блоке finally выполнится в любом случае, при выходе из try-except
+    print("Finally на месте")
+
+print("После После исключения")
+
+
+
+age = int(input("Сколько тебе лет?"))
+
+if age > 100 or age <= 0:
+    raise ValueError("Тебе не может быть столько лет")
+
+print(f"Тебе {age} лет!")  # Возраст выводится только если пользователь ввёл правильный возраст.
+
+
+try:
+    age = int(input("Сколько тебе лет?"))
+
+    if age > 100 or age <= 0:
+        raise ValueError("Тебе не может быть столько лет")
+
+    # Возраст выводится только если пользователь ввёл правильный возраст.
+    print(f"Тебе {age} лет!")
+except ValueError:
+    print("Неправильный возраст")
+
+
+try:
+    i = int(input('Введите число:\t'))
+except ValueError as e:
+    print('Вы ввели неправильное число')
+else:
+    print(f'Вы ввели {i}')
+finally:
+    print('Выход из программы')
+
+
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

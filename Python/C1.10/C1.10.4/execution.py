@@ -5,8 +5,30 @@
 
 from Clients import Guests
 
+clients_1 = [
+    {
+     "name": "Иван Петров",
+     "sity": "Москва",
+     "balance": 50,
+     "status": "Наставник"
+    },
+    {
+     "name": "Сергей Иванов",
+     "sity": "Челябинск",
+     "balance": 30,
+     "status": "Покупатель"
+    },
+    {
+     "name": "Пётр Сидоров",
+     "sity": "Екатеринбург",
+     "balance": 40,
+     "status": "Волонтёр"
+    }
+]
+
+
 # Создаём объект для гостей
-client_obj = Guests()
+client_obj = Guests(clients_1)
 
 # Выводим список гостей
 print(client_obj.get_Client())
