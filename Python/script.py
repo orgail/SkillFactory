@@ -1,5 +1,47 @@
+
+
+"""
+
+C:\GitHub\SkillFactory\SkillFactory\Python>cd c:\python38
+
+python.exe -m pip install --upgrade pip
+
+Database Name = home
+Pk9O65wTKpc7G7EwYDm3ep8tNgn07OO0
+Endpoint
+redis-13519.c258.us-east-1-4.ec2.cloud.redislabs.com:13519
+
+Ранее написал бота телеграма:
+
+# бот для задания C5.3
+Калькулятор валют # название бота для поиска в телеграмме
+t.me/Currency1ToCurrency2_bot
+Use this token to access the HTTP API:
+1603149288:AAEFlv7bPzTpUTHR9Py76H8zdobeUEy1oM0
+
+# удалил этого бота
+t.me/Test_Samara_bot
+Use this token to access the HTTP API:
+1632604748:AAFNVskmw6NaPWaxNu7ze3tY0G5AfYgpbNE
+Keep your token secure and store it safely, it can be used by anyone to control your bot.
+
+# Описание бота
+https://core.telegram.org/bots
+
+#----------------------------------------------------------------------------------------
+# Особенности работы с интерпритатором -
+запустить интерпритатор и оставить включённым -
+Вводим в терминале
+python -i script.py
+
+
+
+#----------------------------------------------------------------------------------------
+
 # print("Hello World")
-"""text=input("Введите какое-то значение: ")
+
+
+text=input("Введите какое-то значение: ")
 print(text)
 print("Ответ на главный вопрос жизни, вселенной и всего такого -", 42)
 
@@ -12,7 +54,7 @@ def which_month():
 
 if __name__ == '__main__':
     which_month()
-    
+
 
 first_name = input("Введите ваше имя:")
 last_name = input("Введите вашу фамилию:")
@@ -413,7 +455,7 @@ print_ladder(n)
 
 
 # здесь добавить тройную кавычку
-text = ''' 
+text = '''
 У лукоморья дуб зелёный;
 Златая цепь на дубе том:
 И днём и ночью кот учёный
@@ -865,6 +907,10 @@ say_word("Oo!!!")
 
 
 
+
+
+
+
 # декоратор, в котором встроенная функция умеет принимать аргументы
 def do_it_twice(func):
    def wrapper(*args, **kwargs):
@@ -879,6 +925,38 @@ def say_word(word):
 say_word("Oo!!!")
 # Oo!!!
 # Oo!!!
+
+
+
+
+
+def counter(func):
+   count = 0
+   def wrapper(*args, **kwargs):
+       nonlocal count
+       func(*args, **kwargs)       # Вопрос 1
+       count += 1
+       print(f"Функция {func} была вызвана {count} раз")
+   return wrapper
+
+@counter
+def say_word(word):
+   print(word)
+say_word("Oo!!!")
+# Oo!!!
+# Функция <function say_word at 0x7f93836d47b8> была вызвана 1 раз
+say_word("Oo!!!")
+# Oo!!!
+# Функция <function say_word at 0x7f93836d47b8> была вызвана 2 раз
+
+
+
+
+
+
+
+
+
 
 def make_adder(n):
     def adder(a):
@@ -1280,6 +1358,8 @@ print(list(map(str.lower, L)))
 
 
 
+# Пример рекурсии - число Фибоначи
+
 def fib(n):
     print(n)
     if n == 1:
@@ -1290,6 +1370,19 @@ def fib(n):
 
 print(fib(9))
 
+#---------------------------------------------------------#
+
+# Пример рекурсии - число Фибоначи
+
+def p(n):
+    print(n)
+    if n == 0:
+        return
+    else:
+        p(n-1)
+        print(n)
+
+p(4)
 
 
 # Из заданного списка вывести только положительные элементы
@@ -2009,216 +2102,562 @@ print(a in aa)
 
 print(aa.count(a))
 
-"""
-
-
-
 a = 1
 b = 3
 print(a.__eq__(b))
 
 
+# Why Python Is Great:
+# Function argument unpacking
 
+def myfunc(x, y, z):
+    print(x, y, z)
 
+tuple_vec = (1, 0, 1)
+dict_vec = {'x': 1, 'y': 0, 'z': 1}
 
+>>> myfunc(*tuple_vec)
+1, 0, 1
 
+>>> myfunc(**dict_vec)
+1, 0, 1
 
 
+class A:
+    def __init__(self):
+        self.x = 10
 
+class B(A):
+    def __init__(self):
+        self.y = self.x + 5
 
+# print(B().y)  # ошибка! AttributeError: 'B' object has no attribute 'x'
 
+# правильно:
 
+class B(A):
+    def __init__(self):
+        super().__init__()  # <- не забудь!
+        self.y = self.x + 5
 
+print(B().y)  # 15
 
 
+try:
+    raise ZeroDivisionError  # возбуждаем исключение ZeroDivisionError
+except ArithmeticError:  # ловим его родителя
+    print("Hello from arithmetic error")
 
 
+try:
+    raise ZeroDivisionError
+except ZeroDivisionError:  # сначала пытаемся поймать наследника
+    print("Zero division error")
+except ArithmeticError:  # потом ловим потомка
+    print("Arithmetic error")
 
 
 
 
 
+class MyException(Exception):  # создаём пустой класс – исключения
+    pass
 
+try:
+    raise MyException("message")  # поднимаем наше исключение
+except MyException as e:  # ловим его за хвост как шкодливого котёнка
+    print(e)  # выводим информацию об исключении
 
 
+# Аббревиатура MRO – method resolution order. А по-русски это переводится как «порядок разрешения методов».
+# Но! Тоже самое относится не только к методам, но и к прочим атрибутам класса,
+# так как методы – это частный случай более общего понятия «атрибут».
 
+class O: ...
+class A(O): ...
+class B(O): ...
+class C(O): ...
+class D(O): ...
+class E(O): ...
 
+class K1(A, B, C): ...
+class K2(B, D): ...
+class K3(C, D, E): ...
 
+class Z(K1, K2, K3): ...
 
+print(Z.mro())
+# [<class '__main__.Z'>, <class '__main__.K1'>, <class '__main__.A'>, <class '__main__.K2'>, <class '__main__.B'>,
+# <class '__main__.K3'>, <class '__main__.C'>, <class '__main__.D'>, <class '__main__.E'>, <class '__main__.O'>, <class 'object'>]
 
+# сделаем понагляднее вывод, печатая только имена классов со стрелочками:
+def print_mro(T):
+    print(*[c.__name__ for c in T.mro()], sep=' -> ')
 
+print_mro(Z)
+# Z -> K1 -> A -> K2 -> B -> K3 -> C -> D -> E -> O -> object
 
+class X: ...
+class Y: ...
+class A(X, Y): ...
+class B(Y, X): ...
 
+class MyMRO(type):  # наследование type = это метакласс
+    def mro(cls):
+        return (cls, A, B, X, Y, object)  # явно задаем порядок!
 
+class G(A, B, metaclass=MyMRO):
+    ...
 
+print_mro(G)  # G -> A -> B -> X -> Y -> object
+# никаких ошибок!
 
+# Измерение времени @timeit
+# Переходим к самописным декораторам.
+# Этот декоратор измеряет время выполнения функции, которую декорирует.
 
+import time
+from functools import wraps
 
+def timeit(method):
+    @wraps(method)
+    def timed(*args, **kw):
+        ts = time.monotonic()
+        result = method(*args, **kw)
+        te = time.monotonic()
+        ms = (te - ts) * 1000
+        all_args = ', '.join(tuple(f'{a!r}' for a in args)
+                             + tuple(f'{k}={v!r}' for k, v in kw.items()))
+        print(f'{method.__name__}({all_args}): {ms:2.2f} ms')
+        return result
+    return timed
 
 
+# использование:
 
+@timeit
+def slow_func(x, y, sleep):
+    time.sleep(sleep)
+    return x + y
 
+slow_func(10, 20, sleep=2)
+# печатает: slow_func(10, 20, sleep=2): 2004.65 ms
 
 
 
 
+class O:
+    def method(self):
+        print('I am O')
 
+class A(O):
+    def method(self):
+        super().method()
+        print('I am A')
 
+class B(O):
+    def method(self):
+        super().method()
+        print('I am B')
 
 
+class C(A, B):
+    def method(self):
+        super().method()
+        print('I am C')
 
+C().method()
+print('-------')
+A().method()
 
 
 
+import os
+help(os)
 
 
+Хорошая структура модуля выглядит следующим образом:
 
+Docstring (описание) модуля.
+Область импорта:
+импорты системных библиотек;
+импорты стандартных пакетов (из PyPI);
+импорты ваших модулей (локальных).
+Область объявление глобальных констант.
+Инициализация модуля.
+Область определения функций и классов.
+Функции.
+if __name__ == '__main__' (метод main) по желанию (это одни из немногих нюансов при работе с собственными модулями).
 
 
 
+import math
+print(math.trunc(math.fmod(math.fabs(-10000000), 55)+0.3))
 
 
+import time
 
+i = 10
 
 
+while i != 0:
+    print(i)
+    time.sleep(1.0)
+    i -= 1
+print("Время вышло!")
 
 
 
 
+import unittest
 
+def broken_function():
+    raise Exception('Это ошибка')
 
+class MyTestCase(unittest.TestCase):
+    def test(self):
+        with self.assertRaises(Exception) as context:
+            broken_function()
 
+        self.assertTrue('Это ошибка' in str(context.exception))
 
+if __name__ == '__main__':
+    unittest.main()
 
 
+# список файлов и директорий в папке
+import os
 
+print(os.getcwd())
+print(os.listdir())  # ['SnapchatLoader', 'FBLoader', 'tmp.py', '.gitignore', 'venv', '.git']
 
+if 'tmp.py' not in os.listdir():
+    print("Файл отсутствует в данной директории")
 
+# получить текущий путь
+start_path = os.getcwd()
+print(start_path)  # /home/nbuser/library
+print(os.listdir())
 
+os.chdir("..")  # подняться на один уровень выше
+print(os.getcwd())  # '/home/nbuser'
+print(os.listdir())
 
+os.chdir(start_path)
+print(os.getcwd())  # '/home/nbuser/library'
+print(os.listdir())
 
 
 
+import os
+start_path = os.getcwd()
+# соединяет пути с учётом особенностей операционной системы
+print(start_path)
+print(os.path.join(start_path, 'test'))
 
 
+f = open('path/to/file', 'filemode', encoding='utf8')
 
 
 
+f = open('test.txt', 'w', encoding='utf8')
 
+# Запишем в файл строку
+f.write("This is a test string\n")
+f.write("This is a new string\n")
 
+f.close()
 
 
 
+f = open('test.txt', 'r', encoding='utf8')
 
+print(f.read(10))  # This is a
+print(f.read()) # считали остаток файла
 
+f.close()
 
 
 
+f = open('test.txt', 'a', encoding='utf8')  # открываем файл на дозапись
 
+sequence = ["other string\n", "123\n", "test test\n"]
+f.writelines(sequence)  # берет строки из sequence и записывает в файл (без переносов)
 
+f.close()
 
 
 
+f = open('test.txt', 'r', encoding='utf8')
 
+print(f.readlines())  # считывает все строки в список и возвращает список
 
+f.close()
 
 
 
+f = open('test.txt', 'r', encoding='utf8')
 
+print(f.readline())  # This is a test string
+print(f.read(4))  # This
+print(f.readline())  # is a new string
 
+f.close()
 
 
 
+f = open('test.txt')  # можно перечислять строки в файле
+for line in f:
+    print(line, end='')
 
+# This is a test string
+# This is a new string
+# other string
+# 123
+# test test
 
+f.close()
 
 
+f = open('test.txt', 'rb')  # можно перечислять строки в файле
+print(f.read()) # b'This is a test string\r\nThis is a new string\r\nother string\r\n123\r\ntest test\r\n'
+f.seek(0) # смещаемся на 0 позицию
+print(f.readlines()) # [b'This is a test string\r\n', b'This is a new string\r\n', b'other string\r\n', b'123\r\n', b'test test\r\n']
+f.close()
 
 
 
+f = open('input.txt', 'w', encoding='utf8')
+sequence = ["other string\n", "123\n", "test test\n"]
+f.writelines(sequence)  # берет строки из sequence и записывает в файл (без переносов)
+f.close()
 
+f = open('input.txt', 'r', encoding='utf8')
+s = f.readlines()
+print(s)
+f.close()
 
+f = open('output.txt', 'w', encoding='utf8')
+f.writelines(s)  # берет строки из sequence и записывает в файл (без переносов)
+f.close()
 
+f = open('output.txt', 'r', encoding='utf8')
+print(f.read())
+f.close()
 
+# то же решение
+with open('input.txt', 'r') as input_file:
+   with open('output.txt', 'w') as output_file:
+       for line in input_file:
+           output_file.write(line) # пишет в цикле по одной строке
 
 
 
 
+filename = 'numbers.txt'
+output = 'output.txt'
 
+with open(filename) as f:
+   min_ = max_ = float(f.readline())  # считали первое число
+   for line in f:
+       num =  float(line)
+       if num > max_:
+           max_ = num
+       elif num < min_:
+           min_ = num
 
+   sum_ = min_ + max_
 
+with open(output, 'w') as f:
+   f.write(str(sum_))
+   f.write('\n')
 
 
+# перечитываем файл построчно
+# опеределяем оценки как последнй символ строки
 
+count = 0
+for line in open("grades.txt", "r", encoding="utf8"):
+    points = int(line.split()[-1])
+    if points < 3:
+        count += 1
+        print(line)
+print("Количество учащихся с оценками меньше 3: ", count)
 
 
+with open('grades.txt', 'r', encoding='utf8') as input_file:
+   with open('output_grades.txt', 'w') as output_file:
+       for line in reversed(input_file.readlines()):
+           output_file.write(line)
 
+with open('output_grades.txt', 'r', encoding='utf8') as output_file:
+    print(output_file.read())
 
 
+sequence = ["other string\n", "123\n", "test test\n"]
+print(list(reversed(sequence)))
 
 
 
+from datetime import datetime
+import time  # проверять действие измерителя будем с помощью библиотеки time
 
 
+# вся суть этого измерителя заключается в том, что мы считаем разницу в секундах между открытием и закрытием контекстного менеджера
+class Timer:
+    def __init__(self):
+        pass
 
+    def __enter__(
+            self):  # этот метод вызывается при запуске с помощью with. Если вы хотите вернуть какой-то объект, чтобы потом работать с ним в контекстном менеджере, как в примере с файлом, то просто верните этот объект через return
+        self.start = datetime.utcnow()
+        return None
 
+    def __exit__(self, exc_type, exc_val, exc_tb):  # этот метод срабатывает при выходе из контекстного менеджера
+        print(f"Time passed: {(datetime.utcnow() - self.start).total_seconds()}")
 
 
+with Timer():
+    time.sleep(2)  # засыпаем на 2 секунды
 
 
 
 
 
+from datetime import datetime
+import time
 
+from contextlib import contextmanager  # импортируем нужный нам декоратор
 
 
+@contextmanager  # оборачиваем функцию в декоратор contextmanager
+def timer():
+    start = datetime.utcnow()
+    yield  # если вам нужно что-то вернуть через контекстный менеджер, просто вставьте этот объект сюда.
+    print(f"Time passed: {(datetime.utcnow() - start).total_seconds()}")
 
 
+with timer():
+    time.sleep(2)
 
 
 
 
+class OpenFile:
+    def __init__(self, path, type):
+        self.file = open(path, type, encoding='utf8')
 
+    def __enter__(self):
+        return self.file
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()
 
 
+with OpenFile('hello.txt', 'wt') as f:
+    f.write('Мой контекстный менеджер делает тоже самое!')
 
 
+import os
+print(os.getcwd())
 
 
 
 
+def p(n):
+    if n == 0:
+        return
+    else:
+        p(n-1)
+        print(n)
+p(5)
 
 
 
+def par_checker(string):
+    stack = []  # инициализируем стек
 
+    for s in string:  # читаем строку посимвольно
+        if s == "(":  # если открывающая скобка,
+            stack.append(s)  # добавляем ее в стек
+        elif s == ")":
+            # если встретилась закрывающая скобка, то проверяем
+            # пуст ли стек и является ли верхний элемент - открывающей скобкой
+            if len(stack) > 0 and stack[-1] == "(":
+                stack.pop()  # удаляем из стека
+            else:  # иначе завершаем функцию с False
+                return False
+    # если стек пустой, то незакрытых скобок не осталось
+    # значит возвращаем True, иначе - False
+    return len(stack) == 0
 
+print(par_checker('((.)(.))'))
+print(par_checker('((.)(.)'))
+print(par_checker('((.).))'))
 
 
 
 
+person = {} # с помощью фигурных скобок можно создать словарь
 
+# словарь заполняется по принципу - ключ:объект (через двоеточие)
+person = {'name' : 'Ivan Petrov'}
 
+# в него можно также добавлять новые объекты по ключу
+person['age'] = 25
+person['email'] = 'ivan_petrov@example.com'
+person['phone'] = '8(800)555-35-35'
 
+print(person)
+# {'name': 'Ivan Petrov', 'age': 25, 'email': 'ivan_petrov@example.com', 'phone': '8(800)555-35-35'}
+print(person.keys())
 
+print(person.values())
+# dict_values(['Ivan Petrov', 25, 'ivan_petrov@example.com', '8(800)555-35-35'])
 
 
 
+d = {'day' : 22, 'month' : 6, 'year' : 2015}
 
+print("||".join(d.keys()))
 
 
 
 
+a = {}
+a = {'(':1}
+a['['] = 1
 
+print(a)
 
+a['('] += 1
+a['('] += 1
+print(a.keys())
+print(a.values())
 
 
+pars = {")": "(", "]": "["}
+print(pars[')'])
 
+def par_checker_mod(string):
+    stack = []
 
+    for s in string:
+        print(stack)
+        if s in "([":
+            stack.append(s)
+        elif s in ")]":
+            if len(stack) > 0 and stack[-1] == pars[s]:
+                stack.pop()
+            else:
+                return False
+    return len(stack) == 0
 
 
+print(par_checker_mod('[]((.)[])'))
 
 
+print(10%10)
 
 
 
@@ -2227,27 +2666,156 @@ print(a.__eq__(b))
 
 
 
+# Создадим класс Queue - нужная нам очередь
+class Queue:
+    # Конструктор нашего класса, в нём происходит нужная инициализация объекта
+    def __init__(self, max_size):
+        self.max_size = max_size  # размер очереди
+        self.task_num = 0  # будем хранить сквозной номер задачи
 
+        self.tasks = [0 for _ in range(self.max_size)]  # инициализируем список с нулевыми элементами
+        self.head = 0  # указатель на начало очереди
+        self.tail = 0  # указатель на элемент следующий за концом очереди
 
+    # !!! Класс далее нужно дополнить методами !!!
 
+    def is_empty(self):  # очередь пуста?
+        # да, если указатели совпадают и в них содержится ноль
+        return self.head == self.tail and self.tasks[self.head] == 0
 
+    def size(self):  # получаем размер очереди
+        if self.is_empty():  # если она пуста
+            return 0  # возвращаем ноль
+        elif self.head == self.tail:  # иначе, если очередь не пуста, но указатели совпадают
+            return self.max_size  # значит очередь заполнена
+        elif self.head > self.tail:  # если хвост очереди сместился в начало списка
+            return self.max_size - self.head + self.tail
+        else:  # или если хвост стоит правее начала
+            return self.tail - self.head
 
+    def add(self):
+        print(self.tasks)
+        print(self.head)
+        print(self.tail)
+        self.task_num += 1  # увеличиваем порядковый номер задачи
+        self.tasks[self.tail] = self.task_num  # добавляем его в очередь
+        print(f"Задача №{self.tasks[self.tail]} добавлена")
 
+        # увеличиваем указатель на 1 по модулю максимального числа элементов
+        # для зацикливания очереди в списке
+        self.tail = (self.tail + 1) % self.max_size
+        print(self.tasks)
+        print(self.head)
+        print(self.tail)
 
+    def show(self):  # выводим приоритетную задачу
+        print(f"Задача №{self.tasks[self.head]} в приоритете")
 
+    def do(self):  # выполняем приоритетную задачу
+        print(self.tasks)
+        print(self.head)
+        print(self.tail)
+        print(f"Задача №{self.tasks[self.head]} выполнена")
+        # после выполнения зануляем элемент по указателю
+        self.tasks[self.head] = 0
+        # и циклично перемещаем указатель
+        self.head = (self.head + 1) % self.max_size
+        print(self.tasks)
+        print(self.head)
+        print(self.tail)
 
+# Используем класс
+size = int(input("Определите размер очереди: "))
+q = Queue(size)
 
+while True:
+    cmd = input("Введите команду:")
+    if cmd == "empty":
+        if q.is_empty():
+            print("Очередь пустая")
+        else:
+            print("В очереди есть задачи")
+    elif cmd == "size":
+        print("Количество задач в очереди:", q.size())
+    elif cmd == "add":
+        if q.size() != q.max_size:
+            q.add()
+        else:
+            print("Очередь переполнена")
+    elif cmd == "show":
+        if q.is_empty():
+            print("Очередь пустая")
+        else:
+            q.show()
+    elif cmd == "do":
+        if q.is_empty():
+            print("Очередь пустая")
+        else:
+            q.do()
+    elif cmd == "exit":
+        for _ in range(q.size()):
+            q.do()
+        print("Очередь пустая. Завершение работы")
+        break
+    else:
+        print("Введена неверная команда")
 
 
 
 
+# Алгоритм Дейкстры
 
+G = {"Адмиралтейская" :
+         {"Садовая" : 4},
+     "Садовая" :
+         {"Сенная площадь" : 3,
+          "Спасская" : 3,
+          "Адмиралтейская" : 4,
+          "Звенигородская" : 5},
+     "Сенная площадь" :
+         {"Садовая" : 3,
+          "Спасская" : 3},
+     "Спасская" :
+         {"Садовая" : 3,
+          "Сенная площадь" : 3,
+          "Достоевская" : 4},
+     "Звенигородская" :
+         {"Пушкинская" : 3,
+          "Садовая" : 5},
+     "Пушкинская" :
+         {"Звенигородская" : 3,
+          "Владимирская" : 4},
+     "Владимирская" :
+         {"Достоевская" : 3,
+          "Пушкинская" : 4},
+     "Достоевская" :
+         {"Владимирская" : 3,
+          "Спасская" : 4}}
 
+print(G.keys())
 
 
+D = {k : 100 for k in G.keys()} # расстояния
+start_k = 'Адмиралтейская' # стартовая вершина
+D[start_k] = 0 # расстояние от нее до самой себя равно нулю
+U = {k : False for k in G.keys()} # флаги просмотра вершин
 
+for _ in range(len(D)):
+    # выбираем среди непросмотренных наименьшее по расстоянию
+    min_k = min([k for k in U.keys() if not U[k]], key = lambda x: D[x])
+    print(_) # 1
+    print(min_k) # Садовая
+    # print(D)
+    print(G[min_k]) # {'Сенная площадь': 3, 'Спасская': 3, 'Адмиралтейская': 4, 'Звенигородская': 5}
+    print(G[min_k].keys()) # dict_keys(['Сенная площадь', 'Спасская', 'Адмиралтейская', 'Звенигородская'])
+    # print(U)
 
+    for v in G[min_k].keys(): # проходимся по всем смежным вершинам
+        D[v] = min(D[v], D[min_k] + G[min_k][v]) # минимум
+        print(v, D[v], D[min_k], G[min_k][v])
+    U[min_k] = True # просмотренную вершину помечаем
 
+print(D)
 
 
 
@@ -2255,45 +2823,2567 @@ print(a.__eq__(b))
 
 
 
+# задание С4.5.4
 
+# Алгоритм Дейкстры
 
+# здесь эталонное решение без принтов
 
+G = {"Адмиралтейская" :
+         {"Садовая" : 4},
+     "Садовая" :
+         {"Сенная площадь" : 3,
+          "Спасская" : 3,
+          "Адмиралтейская" : 4,
+          "Звенигородская" : 5},
+     "Сенная площадь" :
+         {"Садовая" : 3,
+          "Спасская" : 3},
+     "Спасская" :
+         {"Садовая" : 3,
+          "Сенная площадь" : 3,
+          "Достоевская" : 4},
+     "Звенигородская" :
+         {"Пушкинская" : 3,
+          "Садовая" : 5},
+     "Пушкинская" :
+         {"Звенигородская" : 3,
+          "Владимирская" : 4},
+     "Владимирская" :
+         {"Достоевская" : 3,
+          "Пушкинская" : 4},
+     "Достоевская" :
+         {"Владимирская" : 3,
+          "Спасская" : 4}}
 
 
+D = {k : 100 for k in G.keys()} # расстояния
+start_k = 'Адмиралтейская' # стартовая вершина
+D[start_k] = 0 # расстояние от нее до самой себя равно нулю
+U = {k : False for k in G.keys()} # флаги просмотра вершин
+P = {k : None for k in G.keys()} # предки
 
+for _ in range(len(D)):
+    # выбираем среди непросмотренных наименьшее по расстоянию
+    min_k = min([k for k in U.keys() if not U[k]], key = lambda x: D[x])
 
+    for v in G[min_k].keys(): # проходимся по всем смежным вершинам
+         if D[v] > D[min_k] + G[min_k][v]: # если расстояние от текущей вершины меньше
+            D[v] = D[min_k] + G[min_k][v] # то фиксируем его
+            P[v] = min_k # и записываем как предок
+    U[min_k] = True # просмотренную вершину помечаем
 
+pointer = 'Владимирская' # куда должны прийти
+while pointer is not None: # перемещаемся, пока не придем в стартовую точку
+    print(pointer)
+    pointer = P[pointer]
 
 
+# Ответ: Владимирская, Достоевская, Спасская, Садовая, Адмиралтейская
 
 
 
 
+G = {"Адмиралтейская" :
+         {"Садовая" : 4},
+     "Садовая" :
+         {"Сенная площадь" : 3,
+          "Спасская" : 3,
+          "Адмиралтейская" : 4,
+          "Звенигородская" : 5},
+     "Сенная площадь" :
+         {"Садовая" : 3,
+          "Спасская" : 3},
+     "Спасская" :
+         {"Садовая" : 3,
+          "Сенная площадь" : 3,
+          "Достоевская" : 4},
+     "Звенигородская" :
+         {"Пушкинская" : 3,
+          "Садовая" : 5},
+     "Пушкинская" :
+         {"Звенигородская" : 3,
+          "Владимирская" : 4},
+     "Владимирская" :
+         {"Достоевская" : 3,
+          "Пушкинская" : 4},
+     "Достоевская" :
+         {"Владимирская" : 3,
+          "Спасская" : 4}}
 
+# print(G.keys())
+print(G["Адмиралтейская"].keys())
 
+# к ключам из G приписываем 100 = это будет список D
+D = {k : 100 for k in G.keys()} # расстояния
+start_k = 'Адмиралтейская' # стартовая вершина
+D[start_k] = 0 # расстояние от нее до самой себя равно нулю
+# ключам приписываем False, чтобы просмотреть все ключи, это будет список U
+U = {k : False for k in G.keys()} # флаги просмотра вершин -
 
+for _ in range(len(D)):
+    # выбираем среди непросмотренных наименьшее по расстоянию
+    # _ - это счётчик от 0 до 7 - все ключи
+    print('D', D)
+    print('U',U)
+    # Перебираем список U со значение False (ещё не просмотренных) и ищём минимум по значениям из списка D
+    # D {'Адмиралтейская': 0, 'Садовая': 4, 'Сенная площадь': 100, 'Спасская': 100, 'Звенигородская': 100, 'Пушкинская': 100, 'Владимирская': 100, 'Достоевская': 100}
+    # U {'Адмиралтейская': True, 'Садовая': False, 'Сенная площадь': False, 'Спасская': False, 'Звенигородская': False, 'Пушкинская': False, 'Владимирская': False, 'Достоевская': False}
+    # Здесь среди False это 'Садовая' = 4
+    min_k = min([k for k in U.keys() if not U[k]], key = lambda x: D[x])
+    print(_) # 1
+    print('min_k', min_k) # Садовая
+    # print('k in U.keys()', [k for k in U.keys() if not U[k]])
+    # print(D)
+    # print(G[min_k]) # {'Сенная площадь': 3, 'Спасская': 3, 'Адмиралтейская': 4, 'Звенигородская': 5}
+    # print(G[min_k].keys()) # dict_keys(['Сенная площадь', 'Спасская', 'Адмиралтейская', 'Звенигородская'])
+    # print(U)
 
+    for v in G[min_k].keys(): # проходимся по всем смежным вершинам
+        print('v', v)
+        print('D[v]', D[v], '<>', 'D[min_k]', D[min_k], '+', 'G[min_k][v]', G[min_k][v])
+        D[v] = min(D[v], D[min_k] + G[min_k][v]) # минимум
+    U[min_k] = True # просмотренную вершину помечаем
 
+print(D)
 
 
 
 
+# Деревья
 
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left_child = None
+        self.right_child = None
 
+    # Смысл в том, что листья - это экземпляры класса, у них есть self.value, но нет потомков
+    # листья - это потомки, атрибуты родителя. Чтобы из листа сделать узел, нужно добавить ему потомков
+    # пример вызова:
+    #
+    # создаем корень и его потомки /7|2|5\
+    # node_root = BinaryTree(2).insert_left(7).insert_right(5)
+    # левое поддерево корня /2|7|6\
+    # node_7 = node_root.left_child.insert_left(2).insert_right(6)
 
+    def insert_left(self, next_value):
+        # Если у текущего узла нет дочернего слева, то слева делаем подобный нашему класс
+        # будет лист, у которого левый и правый потомок is None
+        if self.left_child is None:
+            self.left_child = BinaryTree(next_value)
+        else:
+        # Если слева существует (лист или узел), то создаём новый экземпляр класса,
+            new_child = BinaryTree(next_value)
+        # в его атрибут - левую ногу кладём имевшееся левое значение
+            new_child.left_child = self.left_child
+        # теперь полученный новый узел new_child с атрибутом = левым значением кладём в родительскую левую ногу
+        # новый узел становится левым потомком текущего узла
+            self.left_child = new_child
+        return self
 
+    def insert_right(self, next_value):
+        if self.right_child is None:
+            self.right_child = BinaryTree(next_value)
+        else:
+            new_child = BinaryTree(next_value)
+            new_child.right_child = self.right_child
+            self.right_child = new_child
+        return self
 
+    def pre_order(self):
+        print(self.value) # процедура обработки
 
+        if self.left_child is not None: # если левый потомок существует
+            self.left_child.pre_order() # рекурсивно вызываем функцию
 
+        if self.right_child is not None: # если правый потомок существует
+            self.right_child.pre_order() # рекурсивно вызываем функцию
 
+    def post_order(self):
+        if self.left_child is not None: # если левый потомок существует
+            self.left_child.post_order() # рекурсивно вызываем функцию
 
+        if self.right_child is not None: # если правый потомок существует
+            self.right_child.post_order() # рекурсивно вызываем функцию
 
+        print(self.value) # процедура обработки
 
+    def in_order(self):
+        if self.left_child is not None:  # если левый потомок существует
+            self.left_child.in_order()  # рекурсивно вызываем функцию
 
+        print(self.value)  # процедура обработки
 
+        if self.right_child is not None:  # если правый потомок существует
+            self.right_child.in_order()  # рекурсивно вызываем функцию
 
 
+# A_node = BinaryTree('A').insert_left('B').insert_right('C')
 
+# строим дерево
+
+# создаем корень и его потомки /7|2|5\
+node_root = BinaryTree(2).insert_left(7).insert_right(5)
+# левое поддерево корня /2|7|6\
+node_7 = node_root.left_child.insert_left(2).insert_right(6)
+# правое поддерево предыдущего узла /5|6|11\
+node_6 = node_7.right_child.insert_left(5).insert_right(11)
+# правое поддерево корня /|5|9\
+node_5 = node_root.right_child.insert_right(9)
+# левое поддерево предыдущего узла корня /4|9|\
+node_9 = node_5.right_child.insert_left(4)
+
+# Обход дерева
+
+# префиксный метод обхода
+# node_root.pre_order()
+
+# 2, 7, 2, 6, 5, 11, 5, 9, 4
+
+# Постфиксный метод обхода
+# node_root.post_order()
+
+# 2, 5, 11, 6, 7, 4, 9, 5, 2
+
+# инфиксный метод обхода
+node_root.in_order()
+
+# 2, 7, 5, 6, 11, 2, 5, 4, 9
+
+
+else:
+    new_child = BinaryTree(next_value)
+    new_child.left_child = self.left_child
+    self.left_child = new_child
+
+
+
+
+# Деревья
+
+class BinaryTree:
+    def __init__(self, value):
+        self.value = value
+        self.left_child = None
+        self.right_child = None
+
+    # Смысл в том, что листья - это экземпляры класса, у них есть self.value, но нет потомков
+    # листья - это потомки, атрибуты родителя. Чтобы из листа сделать узел, нужно добавить ему потомков
+    # пример вызова:
+    #
+    # создаем корень и его потомки /7|2|5\
+    # node_root = BinaryTree(2).insert_left(7).insert_right(5)
+    # левое поддерево корня /2|7|6\
+    # node_7 = node_root.left_child.insert_left(2).insert_right(6)
+
+    # def insert_left(self, next_value):
+    #     self.left_child = BinaryTree(next_value)
+    #     return self
+
+    def insert_left(self, next_value):
+        if self.left_child is None:
+            self.left_child = BinaryTree(next_value)
+        else:
+            # Создаём новый экземпляр с value = 2
+            new_child = BinaryTree(next_value)
+            # смотрим есть ли потомки у живущей /2|7 слева
+            if self.left_child.left_child is not None:
+                # если есть, то слева пристраиваем всю цепочку,
+                new_child.left_child = self.left_child.left_child
+                # то же делаем справа
+            if self.left_child.right_child is not None:
+                new_child.right_child = self.left_child.right_child
+            self.left_child = new_child
+        return self
+
+    def insert_right(self, next_value):
+        self.right_child = BinaryTree(next_value)
+        return self
+
+    def pre_order(self):
+        print(self.value) # процедура обработки
+
+        if self.left_child is not None: # если левый потомок существует
+            self.left_child.pre_order() # рекурсивно вызываем функцию
+
+        if self.right_child is not None: # если правый потомок существует
+            self.right_child.pre_order() # рекурсивно вызываем функцию
+
+    def post_order(self):
+        if self.left_child is not None: # если левый потомок существует
+            self.left_child.post_order() # рекурсивно вызываем функцию
+
+        if self.right_child is not None: # если правый потомок существует
+            self.right_child.post_order() # рекурсивно вызываем функцию
+
+        print(self.value) # процедура обработки
+
+    def in_order(self):
+        if self.left_child is not None:  # если левый потомок существует
+            self.left_child.in_order()  # рекурсивно вызываем функцию
+
+        print(self.value)  # процедура обработки
+
+        if self.right_child is not None:  # если правый потомок существует
+            self.right_child.in_order()  # рекурсивно вызываем функцию
+
+
+# A_node = BinaryTree('A').insert_left('B').insert_right('C')
+
+# строим дерево
+
+# создаем корень и его потомки /7|2|5\
+node_root = BinaryTree(2).insert_left(7).insert_right(5)
+# левое поддерево корня /2|7|6\
+node_7 = node_root.left_child.insert_left(2).insert_right(6)
+# правое поддерево предыдущего узла /5|6|11\
+node_6 = node_7.right_child.insert_left(5).insert_right(11)
+# правое поддерево корня /|5|9\
+node_5 = node_root.right_child.insert_right(9)
+# левое поддерево предыдущего узла корня /4|9|\
+node_9 = node_5.right_child.insert_left(4)
+
+# Обход дерева
+
+# префиксный метод обхода
+# node_root.pre_order()
+
+# 2, 7, 2, 6, 5, 11, 5, 9, 4
+
+# Постфиксный метод обхода
+# node_root.post_order()
+
+# 2, 5, 11, 6, 7, 4, 9, 5, 2
+
+# инфиксный метод обхода
+node_root.in_order()
+
+# 2, 7, 5, 6, 11, 2, 5, 4, 9
+
+
+
+
+
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+count=0 ###########
+for i in range(len(array)):  # проходим по всему массиву
+    idx_min = i  # сохраняем индекс предположительно минимального элемента
+    for j in range(i, len(array)):  #
+        if array[j] < array[idx_min]:
+            idx_min = j
+        count+=1 ############
+    if i != idx_min:  # если индекс не совпадает с минимальным, меняем
+        array[i], array[idx_min] = array[idx_min], array[i]
+print(array, count) #####
+
+
+
+
+
+
+class Node:  # класс элемента
+    def __init__(self, value=None, next_=None):  # инициализируем
+        self.value = value  # значением
+        self.next = next_  # и ссылкой на следующий элемент
+
+    def __str__(self):
+        return "Node value = " + str(self.value)
+
+
+class LinkedList:  # класс списка
+    def __init__(self):  # инициализируем пустым
+        self.first = None
+        self.last = None
+
+    def clear(self):  # очищаем список
+        self.__init__()
+
+    def __str__(self):  # функция печати
+        R = ''
+
+        pointer = self.first  # берем первый указатель
+        while pointer is not None:  # пока указатель не станет None
+            R += str(pointer.value)  # добавляем значение в строку
+            pointer = pointer.next  # идем дальше по указателю
+            if pointer is not None:  # если он существует добавляем пробел
+                R += ' '
+        return R
+
+    def pushleft(self, value):
+        if self.first is None:
+            self.first = Node(value)
+            self.last = self.first
+        else:
+            new_node = Node(value, self.first)
+            self.first = new_node
+
+
+    def pushright(self, value):
+        if self.first is None:
+            self.first = Node(value)
+            self.last = self.first
+        else:
+            new_node = Node(value)
+            self.last.next = new_node
+            self.last = new_node
+
+    def popleft(self):
+        if self.first is None: # если список пустой, возвращаем None
+            return None
+        elif self.first == self.last: # если список содержит только один элемент
+            node = self.first # сохраняем его
+            self.__init__() # очищаем
+            return node # и возвращаем сохраненный элемент
+        else:
+            node = self.first # сохраняем первый элемент
+            self.first = self.first.next # меняем указатель на первый элемент
+            return node # возвращаем сохраненный
+
+    def popright(self):
+        if self.first is None: # если список пустой, возвращаем None
+            return None
+        elif self.first == self.last: # если список содержит только один элемент
+            node = self.first # сохраняем его
+            self.__init__() # очищаем
+            return node # и возвращаем сохраненный элемент
+        else:
+            node = self.last # сохраняем последний
+            pointer = self.first # создаем указатель
+            while pointer.next is not node: # пока не найдем предпоследний
+                pointer = pointer.next
+            pointer.next = None # обнуляем указатели, чтобы
+            self.last = pointer # предпоследний стал последним
+            return node # возвращаем сохраненный
+
+    def __iter__(self): # объявляем класс как итератор
+        self.current = self.first # в текущий элемент помещаем первый
+        return self # возвращаем итератор
+
+    def __next__(self): # метод перехода
+        if self.current is None: # если текущий стал последним
+            raise StopIteration # вызываем исключение
+        else:
+            node = self.current # сохраняем текущий элемент
+            self.current = self.current.next # совершаем переход
+            return node # и возвращаем сохраненный
+
+    def __len__(self):
+        count = 0
+        pointer = self.first
+        while pointer is not None:
+            count += 1
+            pointer = pointer.next
+        return count
+
+LL = LinkedList()
+
+LL.pushright(1)
+LL.pushleft(2)
+LL.pushright(3)
+LL.popright()
+LL.pushleft(4)
+LL.pushright(5)
+LL.popleft()
+
+print(LL.__len__())
+
+# -------------------------------------------------------
+
+Линейный алгоритм поиска может применяться для следующих целей:
+
+Нахождение минимального/максимального элемента.
+Поиск элемента с определенным значением.
+Количество вхождений элемента в массив.
+Количество элементов больше заданного.
+
+def find(array, element):
+    for i, a in enumerate(array):
+        if a == element:
+            return i
+    return False
+
+def count(array, element):
+    count = 0
+    for a in array:
+        if a == element:
+            count += 1
+    return count
+
+array = list(map(int, input().split()))
+element = int(input())
+
+print(find(array, element))
+
+
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+
+# двоичный поиск элемента в отсортированном массиве
+
+def binary_search(array, element, left, right):
+    if left > right:  # если левая граница превысила правую,
+        return False  # значит элемент отсутствует
+
+    middle = (right + left) // 2  # находимо середину
+    if array[middle] == element:  # если элемент в середине,
+        return middle  # возвращаем этот индекс
+    elif element < array[middle]:  # если элемент меньше элемента в середине
+        # рекурсивно ищем в левой половине
+        print('a', middle, array[middle])
+        return binary_search(array, element, left, middle - 1)
+    else:  # иначе в правой
+        print('b', middle, array[middle])
+        return binary_search(array, element, middle + 1, right)
+
+
+element = int(input())
+array = [i for i in range(1, 100)]  # 1,2,3,4,...
+
+# запускаем алгоритм на левой и правой границе
+print(binary_search(array, element, 0, 99))
+
+# -------------------------------------------------------
+
+
+
+# Наивная сортировка - полный перебор массива наудачу через random, пока не попадётся правильный
+
+import random  # модуль, с помощью которого перемешиваем массив
+
+# пусть имеем массив всего лишь из 9 элементов
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+
+is_sort = False  # станет True, если отсортирован
+count = 0  # счетчик количества перестановок
+
+while not is_sort:  # пока не отсортирован
+    count += 1  # прибавляем 1 к счетчику
+
+    random.shuffle(array)  # перемешиваем массив
+
+    # проверяем отсортирован ли
+    is_sort = True
+    for i in range(len(array) - 1):
+        if array[i] > array[i + 1]:
+            is_sort = False
+            break
+
+print(array)
+# [1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(count)
+# 290698
+
+# -------------------------------------------------------
+
+
+
+
+# Сортировка выбором - ищем меньшее, ставим в начало
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+
+count = 0
+
+for i in range(len(array)):  # проходим по всему массиву
+    idx_min = i  # сохраняем индекс предположительно минимального элемента
+    print('idx_min', idx_min)
+    count +=1
+    for j in range(i, len(array)):  #
+        if array[j] < array[idx_min]:
+            idx_min = j
+            print('idx_min от j', idx_min, array[j])
+    if i != idx_min:  # если индекс не совпадает с минимальным, меняем
+        array[i], array[idx_min] = array[idx_min], array[i]
+        print('i', i, 'array[i]', array[i], 'array[idx_min]', array[idx_min])
+print(array)
+print(count)
+
+# -------------------------------------------------------
+
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+count=0 ###########
+for i in range(len(array)):  # проходим по всему массиву
+    idx_min = i  # сохраняем индекс предположительно минимального элемента
+    for j in range(i, len(array)):  #
+        if array[j] < array[idx_min]:
+            idx_min = j
+        count+=1 ############
+    if i != idx_min:  # если индекс не совпадает с минимальным, меняем
+        array[i], array[idx_min] = array[idx_min], array[i]
+print(array, count) #####
+
+# -------------------------------------------------------
+
+# Сортировка пузырьком
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+
+for i in range(len(array)):
+    for j in range(len(array) - i - 1):
+        print(j)
+        if array[j] > array[j + 1]:
+            array[j], array[j + 1] = array[j + 1], array[j]
+            print(array)
+
+print(array)
+
+
+# -------------------------------------------------------
+# Сортировка вставками
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+count=0
+
+for i in range(1, len(array)):
+    x = array[i]
+    idx = i
+    while idx > 0 and array[idx-1] > x:
+        array[idx] = array[idx-1]
+        idx -= 1
+        count += 1
+    array[idx] = x
+
+print(array, count)
+
+# -------------------------------------------------------
+# алгоритм сортировки слиянием
+
+L = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+
+def merge_sort(L):  # "разделяй"
+    if len(L) < 2:  # если кусок массива равен 2,
+        return L[:]  # выходим из рекурсии
+    else:
+        middle = len(L) // 2  # ищем середину
+        left = merge_sort(L[:middle])  # рекурсивно делим левую часть
+        right = merge_sort(L[middle:])  # и правую
+        return merge(left, right)  # выполняем слияние
+
+
+def merge(left, right):  # "властвуй"
+    result = []  # результирующий массив
+    i, j = 0, 0  # указатели на элементы
+
+    # пока указатели не вышли за границы
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    # добавляем хвосты
+    while i < len(left):
+        result.append(left[i])
+        i += 1
+
+    while j < len(right):
+        result.append(right[j])
+        j += 1
+
+    return result
+
+print(merge_sort(L))
+
+
+# -------------------------------------------------------
+
+# Быстрая сортировка
+
+
+array = [2, 3, 1, 4, 6, 5, 9, 8, 7]
+
+def qsort(array, left, right):
+    middle = (left + right) // 2
+
+    p = array[middle]
+    i, j = left, right
+    while i <= j:
+        while array[i] < p:
+            i += 1
+        while array[j] > p:
+            j -= 1
+        if i <= j:
+            array[i], array[j] = array[j], array[i]
+            i += 1
+            j -= 1
+
+    if j > left:
+        qsort(array, left, j)
+    if right > i:
+        qsort(array, i, right)
+
+    return array
+
+print(qsort(array, 7, 2 ))
+
+
+
+
+# -------------------------------------------------------
+
+# Быстрая сортировка
+
+def qsort_random(array, left, right):
+    p = random.choice(array[left:right + 1])
+    i, j = left, right
+    while i <= j:
+        while array[i] < p:
+            i += 1
+        while array[j] > p:
+            j -= 1
+        if i <= j:
+            count += 1
+            array[i], array[j] = array[j], array[i]
+            i += 1
+            j -= 1
+
+    if j > left:
+        qsort_random(array, left, j)
+    if right > i:
+        qsort_random(array, i, right)
+
+
+
+
+
+
+# -------------------------------------------------------
+
+# Сортировка Шелла
+# http://aliev.me/runestone/SortSearch/TheShellSort.html
+
+def shellSort(alist):
+    sublistcount = len(alist)//2
+    while sublistcount > 0:
+
+      for startposition in range(sublistcount):
+        gapInsertionSort(alist,startposition,sublistcount)
+
+      print("After increments of size",sublistcount,
+                                   "The list is",alist)
+
+      sublistcount = sublistcount // 2
+
+def gapInsertionSort(alist,start,gap):
+    for i in range(start+gap,len(alist),gap):
+
+        currentvalue = alist[i]
+        position = i
+
+        while position>=gap and alist[position-gap]>currentvalue:
+            alist[position]=alist[position-gap]
+            position = position-gap
+
+        alist[position]=currentvalue
+
+alist = [54,26,93,17,77,31,44,55,20]
+shellSort(alist)
+print(alist)
+
+
+
+
+
+# -------------------------------------------------------
+
+# Пирамидальная сортировка (HeapSort)
+# Сортировка кучей.
+# Реализация пирамидальной сортировки на Python
+
+# Процедура для преобразования в двоичную кучу поддерева с корневым узлом i, что является индексом в arr[]. n - размер кучи
+def heapify(arr, n, i):
+    largest = i # Initialize largest as root
+    l = 2 * i + 1   # left = 2*i + 1
+    r = 2 * i + 2   # right = 2*i + 2
+
+  # Проверяем существует ли левый дочерний элемент больший, чем корень
+
+    if l < n and arr[i] < arr[l]:
+        largest = l
+
+    # Проверяем существует ли правый дочерний элемент больший, чем корень
+
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+
+    # Заменяем корень, если нужно
+    if largest != i:
+        arr[i],arr[largest] = arr[largest],arr[i] # свап
+
+        # Применяем heapify к корню.
+        heapify(arr, n, largest)
+
+# Основная функция для сортировки массива заданного размера
+def heapSort(arr):
+    n = len(arr)
+
+    # Построение max-heap.
+    for i in range(n, -1, -1):
+        heapify(arr, n, i)
+
+    # Один за другим извлекаем элементы
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i] # свап
+        heapify(arr, i, 0)
+
+# Управляющий код для тестирования
+arr = [ 12, 11, 13, 5, 6, 7]
+heapSort(arr)
+n = len(arr)
+print ("Sorted array is")
+for i in range(n):
+    print ("%d" %arr[i]),
+# Этот код предоставил Mohit Kumra
+
+
+# -------------------------------------------------------
+# Плавная сортировка
+# https://habr.com/ru/company/edison/blog/496852/
+
+import random
+
+
+def smoothsort(lst):
+    # Вычислим необходимое количество чисел Леонардо
+    leo_nums = leonardo_numbers(len(lst))
+
+    # Куча будет храниться в виде списка деревьев Леонардо
+    heap = []
+
+    # Создание первоначальной кучи
+    # Очередной элемент или объединяет две предыдущие кучи
+    # или добавляет новую кучу из одного узла
+    for i in range(len(lst)):
+        if len(heap) >= 2 and heap[-2] == heap[-1] + 1:
+            heap.pop()
+            heap[-1] += 1
+        else:
+            if len(heap) >= 1 and heap[-1] == 1:
+                heap.append(0)
+            else:
+                heap.append(1)
+        restore_heap(lst, i, heap, leo_nums)
+
+    # Разбираем кучу куч
+    for i in reversed(range(len(lst))):
+        if heap[-1] < 2:
+            heap.pop()
+        else:
+            k = heap.pop()
+            t_r, k_r, t_l, k_l = get_child_trees(i, k, leo_nums)
+            heap.append(k_l)
+            restore_heap(lst, t_l, heap, leo_nums)
+            heap.append(k_r)
+            restore_heap(lst, t_r, heap, leo_nums)
+
+
+# Генерация чисел Леонардо, не превышающих количество элементов массива
+def leonardo_numbers(hi):
+    a, b = 1, 1
+    numbers = []
+    while a <= hi:
+        numbers.append(a)
+        a, b = b, a + b + 1
+    return numbers
+
+
+# Восстановление кучи после слияния куч или удаления корня
+def restore_heap(lst, i, heap, leo_nums):
+    # Модифицированная сортировка вставками для корней куч
+
+    current = len(heap) - 1
+    k = heap[current]
+
+    while current > 0:
+        j = i - leo_nums[k]
+        if (lst[j] > lst[i] and
+                (k < 2 or lst[j] > lst[i - 1] and lst[j] > lst[i - 2])):
+            lst[i], lst[j] = lst[j], lst[i]
+            i = j
+            current -= 1
+            k = heap[current]
+        else:
+            break
+
+    # Просейка
+
+    while k >= 2:
+        t_r, k_r, t_l, k_l = get_child_trees(i, k, leo_nums)
+        if lst[i] < lst[t_r] or lst[i] < lst[t_l]:
+            if lst[t_r] > lst[t_l]:
+                lst[i], lst[t_r] = lst[t_r], lst[i]
+                i, k = t_r, k_r
+            else:
+                lst[i], lst[t_l] = lst[t_l], lst[i]
+                i, k = t_l, k_l
+        else:
+            break
+
+
+# При удалении корня куча делится на две меньшие кучи,
+# соответствующие двум предыдущим числами Леонардо
+def get_child_trees(i, k, leo_nums):
+    t_r, k_r = i - 1, k - 2
+    t_l, k_l = t_r - leo_nums[k_r], k - 1
+    return t_r, k_r, t_l, k_l
+
+
+# Основная процедура
+def main(n):
+    lst = list(range(n))
+    random.shuffle(lst)
+    print(lst)
+    smoothsort(lst)
+    print(lst)
+
+# -------------------------------------------------------
+Timsort. Обратите на нее особое внимание,
+потому что именно эта сортировка используется во встроенных сортировках языка Python.
+Она заслуживает рассмотрения, поскольку учитывает еще и эмпирические факты.
+https://habr.com/ru/company/infopulse/blog/133303/
+
+
+# -------------------------------------------------------
+
+
+
+
+import requests
+
+r = requests.get('https://baconipsum.com/api/?type=all-meat&paras=3&start-with-lorem=1&format=html')  # делаем запрос на сервер по переданному адресу
+print(r.content)
+print(r.status_code) # узнаем статус полученного ответа
+
+
+
+import requests
+
+r = requests.get('https://baconipsum.com/api/?type=meat-and-filler') # попробуем поймать json ответ
+print(r.content)
+# -------------------------------------------------------
+
+
+import requests
+import json  # импортируем необходимую библиотеку
+
+r = requests.get('https://baconipsum.com/api/?type=meat-and-filler')
+texts = json.loads(r.content)  # делаем из полученных байтов python объект для удобной работы
+print(type(texts))  # проверяем тип сконвертированных данных
+
+for text in texts:  # выводим полученный текст. Но для того чтобы он влез в консоль оставим только первые 50 символов.
+    print(text[:50], '\n')
+
+
+
+
+import requests
+import json
+
+r = requests.get('https://api.github.com')
+
+d = json.loads(r.content)  # делаем из полученных байтов python объект для удобной работы
+
+print(type(d))
+print(d['following_url'])  # обращаемся к полученному объекту как к словарю и попробуем напечатать одно из его значений
+
+print(d)
+
+
+
+
+
+import requests
+
+r = requests.post('https://httpbin.org/post', data={'key': 'value'})  # отправляем пост запрос
+print(r.content)  # содержимое ответа и его обработка происходит также как и с ГЕТ запросами, разницы никакой нету
+
+
+
+# -------------------------------------------------------
+
+
+import requests
+import json
+
+data = {'key': 'value'}
+
+r = requests.post('https://httpbin.org/post', json=json.dumps(
+    data))  # отправляем пост запрос, но только в этот раз тип передаваемых данных будет JSON
+print(r.content)
+
+
+# -------------------------------------------------------
+
+import requests
+import json
+
+r = requests.get('https://baconipsum.com/api/?type=meat-and-filler')
+
+r = json.loads(r.content)
+
+print(r[0])
+
+
+
+
+
+# -------------------------------------------------------
+
+t.me/Currency1ToCurrency2_bot
+Use this token to access the HTTP API:
+1603149288:AAEFlv7bPzTpUTHR9Py76H8zdobeUEy1oM0
+
+# -------------------------------------------------------
+
+
+
+import telebot
+
+TOKEN = "1603149288:AAEFlv7bPzTpUTHR9Py76H8zdobeUEy1oM0"
+
+# bot.polling(none_stop=True)
+
+# bot.reply_to(message, "This is a message handler")
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, f"Welcome, \ c{message.chat.username}")
+
+bot = telebot.TeleBot(TOKEN)
+# print(bot)
+
+# -------------------------------------------------------
+
+
+import telebot
+
+TOKEN = '1603149288:AAEFlv7bPzTpUTHR9Py76H8zdobeUEy1oM0'
+bot = telebot.TeleBot(TOKEN)
+
+# @bot.message_handler(content_types=['photo', ])
+# def say_lmao(message: telebot.types.Message):
+#     bot.reply_to(message, 'Nice meme XDD')
+
+@bot.message_handler(content_types=['voice', ])
+def say_lmao(message: telebot.types.Message):
+    bot.reply_to(message, 'У тебя красивый голос!')
+    # bot.reply_to(message.chat.id, 'У тебя красивый голос!')
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, f"Welcome, \n {message.chat.username}")
+    print(message.text)
+
+
+@bot.message_handler()
+def repeat(message: telebot.types.Message):
+    bot.send_message(message.chat.id, message.text)
+    # bot.send_message(message.chat.id, 'hello')
+
+
+bot.polling(none_stop=True)
+
+# -------------------------------------------------------
+
+
+
+import requests  # импортируем наш знакомый модуль
+import lxml.html
+from lxml import etree
+
+html = requests.get('https://www.python.org/').content  # получим html главной странички официального сайта python
+
+tree = lxml.html.document_fromstring(html)
+title = tree.xpath(
+    '/html/head/title/text()')  # забираем текст тега <title> из тега <head> который лежит в свою очередь внутри тега <html> (в этом невидимом теге <head> у нас хранится основная информация о страничке. Её название и инструкции по отображению в браузере.
+
+print(title)  # выводим полученный заголовок страницы
+
+
+# -------------------------------------------------------
+
+import requests  # импортируем наш знакомый модуль
+import lxml.html
+from lxml import etree
+
+# создадим объект ElementTree. Он возвращается функцией parse()
+tree = etree.parse('Welcome to Python.org.html', lxml.html.HTMLParser())  # попытаемся спарсить наш файл с помощью html парсера.
+# Сам html - это то что мы скачали и поместили в папку из браузера.
+
+# print('tree', tree)
+
+ul = tree.findall('body/div[1]/div[3]/div/section/div[2]/div[1]/div/ul/li')  # помещаем в аргумент методу findall скопированный xpath. Здесь мы получим все элементы списка новостей. (Все заголовки и их даты)
+
+# print('ul', ul)
+
+# создаём цикл в котором мы будем выводить название каждого элемента из списка
+for li in ul:
+    a = li.find('a')  # в каждом элементе находим где хранится заголовок новости. У нас это тег <a>. Т.е. гиперссылка на которую нужно нажать, чтобы перейти на страницу с новостью. (Гиперссылки в html это всегда тэг <a>)
+    print(a.text)  # из этого тега забираем текст - это и будет нашим названием
+
+
+
+# -------------------------------------------------------
+
+import lxml.html
+
+html = ''' <html>
+ <head> <title> Some title </title> </head>
+ <body>
+  <tag1> some text
+     <tag2> MY TEXT </tag2>
+   </tag1>
+ </body>
+</html>
+'''
+
+tree = lxml.html.document_fromstring(html)
+
+text = tree.xpath('/html/body/tag1/tag2/text()')
+
+print(text)
+
+
+
+
+
+# -------------------------------------------------------
+
+import requests # импортируем наш знакомый модуль
+import lxml.html
+from lxml import etree
+
+html = requests.get('https://www.python.org/').content  # получим html главной странички официального сайта python
+
+tree = lxml.html.document_fromstring(html)
+
+print('tree', tree)
+
+ul = tree.findall('body/div[1]/div[3]/div/section/div[2]/div[1]/div/ul/li')  # помещаем в аргумент методу findall скопированный xpath. Здесь мы получим все элементы списка новостей. (Все заголовки и их даты)
+
+# print('ul', ul)
+
+# создаём цикл в котором мы будем выводить название каждого элемента из списка
+for li in ul:
+    a = li.find('a')  # в каждом элементе находим где хранится заголовок новости. У нас это тег <a>. Т.е. гиперссылка на которую нужно нажать, чтобы перейти на страницу с новостью. (Гиперссылки в html это всегда тэг <a>)
+    print(a.text)  # из этого тега забираем текст - это и будет нашим названием
+
+
+
+
+# -------------------------------------------------------
+
+
+import redis
+
+
+red = redis.Redis(
+    host = 'redis-13519.c258.us-east-1-4.ec2.cloud.redislabs.com',
+    port = 13519,
+    password = 'Pk9O65wTKpc7G7EwYDm3ep8tNgn07OO0'
+)
+
+# запускаем терминал в работу Вводим в терминале
+# python -i script.py
+# red
+# получаем Redis<ConnectionPool<Connection<host=redis-13519.c258.us-east-1-4.ec2.cloud.redislabs.com,port=13519,db=0>>>
+# проверяемю, что кэш работает, вводим в терминале:
+
+# red.set('var1', 'value')
+
+# получим значение из кэша:
+
+# red.get('var1')
+# выходим - exit()
+
+# затем, после того как вышли снова заходим и снова проверяем наличие данных в кэше red.get('var1') - они должны быть.
+
+print(red.get('var1'))
+
+
+# -------------------------------------------------------
+
+
+# пишем в редис словарь
+
+import redis
+import json # так так так, кто это тут у нас? Наш старый друг Джейсон заглянул на огонёк! Ну привет, чем ты сегодня нас порадуешь?
+
+
+red = redis.Redis(
+    host = 'redis-13519.c258.us-east-1-4.ec2.cloud.redislabs.com',
+    port = 13519,
+    password = 'Pk9O65wTKpc7G7EwYDm3ep8tNgn07OO0'
+)
+
+dict1 = {'key1': 'value1', 'key2': 'value2'} # создаём словарь для записи
+red.set('dict1', json.dumps(dict1)) # с помощью функции dumps() из модуля json превратим наш словарь в строчку
+converted_dict = json.loads(red.get('dict1')) # с помощью знакомой нам функции прерващаем данные полученные из кеша обратно в словарь
+print(type(converted_dict)) # убеждаемся что мы получили действительно словарь
+print(converted_dict) # ну и выводим его содержание
+
+
+# -------------------------------------------------------
+
+# удаляем из редиса словарь
+
+import redis
+import json # так так так, кто это тут у нас? Наш старый друг Джейсон заглянул на огонёк! Ну привет, чем ты сегодня нас порадуешь?
+
+
+red = redis.Redis(
+    host = 'redis-13519.c258.us-east-1-4.ec2.cloud.redislabs.com',
+    port = 13519,
+    password = 'Pk9O65wTKpc7G7EwYDm3ep8tNgn07OO0'
+)
+
+red.delete('dict1') # удаляются ключи с помощью метода .delete()
+print(red.get('dict1'))
+
+
+
+# -------------------------------------------------------
+
+import telebot
+
+TOKEN = '1603149288:AAEFlv7bPzTpUTHR9Py76H8zdobeUEy1oM0'
+bot = telebot.TeleBot(TOKEN)
+
+# @bot.message_handler(content_types=['photo', ])
+# def say_lmao(message: telebot.types.Message):
+#     bot.reply_to(message, 'Nice meme XDD')
+
+# @bot.message_handler(content_types=['voice', ])
+# def say_lmao(message: telebot.types.Message):
+#     bot.reply_to(message, 'У тебя красивый голос!')
+#     # bot.reply_to(message.chat.id, 'У тебя красивый голос!')
+#
+# @bot.message_handler(commands=['start', 'help'])
+# def send_welcome(message):
+#     bot.send_message(message.chat.id, f"Welcome, \n {message.chat.username}")
+#     print(message.text)
+
+@bot.message_handler()
+def repeat(message: telebot.types.Message):
+    # bot.send_message(message.chat.id, message.text)
+    bot.send_message(message.chat.id, 'hello')
+
+bot.polling(none_stop=True)
+
+
+
+# -------------------------------------------------------
+
+
+C5.6 примеры решений
+https://github.com/depressed-furry/crypto-bot
+
+
+проблема с библиотекой
+https://app.slack.com/client/T016HEPDN72/search/search-1da84d40-b1c4-4091-93a4-e5b07f04e778/thread/C01DLB357TM-1618770952.072300
+Попробуйте создать новый проект и добавить в него только pyTelegramBotAPI и запустить в нем этот код:
+import telebot
+print(telebot.__file__)
+print(dir(telebot))
+
+
+r = requests.get('https://api.exchangeratesapi.io/v1/latest?access_key = 507452a90d133eeff4c02a5be7028ca7&base = USD&symbols=GBP,JPY,EUR')
+
+r = requests.get('http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7&base=USD&symbols=GBP')
+
+total_base = json.loads(r.content)[keys[base]]
+
+print(r.content)
+
+
+(курс из EUR в "B") / (курс из EUR в "A")
+
+print(requests.get('http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7&symbols=JPY,USD').content)
+
+b'{"success":true,"timestamp":1620227644,"base":"EUR","date":"2021-05-05","rates":{"JPY":131.125726,"USD":1.200444}}'
+
+r = requests.get('http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7&symbols=JPY,USD')
+
+print(json.loads(r.content)[keys[base]])
+
+print(json.loads(r.content)['base'])
+
+print(json.loads(r.content)['rates'['JPY']])
+
+print(json.loads(r.content)['rates'])
+
+# a = {'success': True, 'timestamp': 1620227644, 'base': 'EUR', 'date': '2021-05-05', 'rates': {'JPY': 131.125726, 'USD': 1.200444}}
+
+# print(a['rates']['JPY'])
+
+
+
+# -------------------------------------------------------
+b'{"success":true,"timestamp":1620230943,"base":"EUR","date":"2021-05-05","rates":' \
+b'{"AED":4.405566,"AFN":93.017537,"ALL":122.883282,"AMD":624.961389,"ANG":2.152951,' \
+b'"AOA":784.768971,"ARS":112.458629,"AUD":1.548087,"AWG":2.15961,"AZN":2.036167,' \
+b'"BAM":1.95246,"BBD":2.421758,"BDT":101.715007,"BGN":1.95689,"BHD":0.452196,' \
+b'"BIF":2352.121317,"BMD":1.19945,"BND":1.601456,"BOB":8.282974,"BRL":6.434684,' \
+b'"BSD":1.1994,"BTC":2.0860512e-5,"BTN":88.61068,"BWP":13.045785,"BYN":3.067905,' \
+b'"BYR":23509.218672,"BZD":2.417665,"CAD":1.471185,"CDF":2402.498096,"CHF":1.095554,' \
+b'"CLF":0.030624,"CLP":845.006147,"CNY":7.764755,"COP":4614.343862,"CRC":737.946436,' \
+b'"CUC":1.19945,"CUP":31.785423,"CVE":110.756786,"CZK":25.781877,"DJF":213.551443,' \
+b'"DKK":7.43542,"DOP":68.314678,"DZD":160.198392,"EGP":18.797536,"ERN":17.994041,' \
+b'"ETB":50.460928,"EUR":1,"FJD":2.446695,"FKP":0.87125,"GBP":0.862417,"GEL":4.1259,' \
+b'"GGP":0.87125,"GHS":6.920851,"GIP":0.87125,"GMD":61.435528,"GNF":11898.543135,' \
+b'"GTQ":9.256521,"GYD":250.939719,"HKD":9.319468,"HNL":28.936743,"HRK":7.531375,' \
+b'"HTG":102.730568,"HUF":358.83706,"IDR":17289.111214,"ILS":3.919227,"IMP":0.87125,' \
+b'"INR":88.508968,"IQD":1754.195526,"IRR":50502.839069,"ISK":151.106785,"JEP":0.87125,' \
+b'"JMD":182.947432,"JOD":0.850405,"JPY":131.08671,"KES":128.218033,"KGS":101.703042,' \
+b'"KHR":4857.772509,"KMF":492.128626,"KPW":1079.50517,"KRW":1350.017092,"KWD":0.36143,' \
+b'"KYD":0.999467,"KZT":511.676924,"LAK":11298.818256,"LBP":1832.759371,"LKR":236.314313,' \
+b'"LRD":206.395315,"LSL":17.211937,"LTL":3.541664,"LVL":0.725536,"LYD":5.391546,' \
+b'"MAD":10.699071,"MDL":21.411946,"MGA":4497.937195,"MKD":61.550221,"MMK":1868.322225,' \
+b'"MNT":3419.214809,"MOP":9.599153,"MRO":428.20342,"MUR":48.997795,"MVR":18.411151,' \
+b'"MWK":950.566641,"MXN":24.26835,"MYR":4.938734,"MZN":69.280146,"NAD":17.212812,' \
+b'"NGN":455.791355,"NIO":42.18446,"NOK":10.030298,"NPR":141.777087,"NZD":1.663571,' \
+b'"OMR":0.461781,"PAB":1.1994,"PEN":4.596889,"PGK":4.234651,"PHP":57.597933,' \
+b'"PKR":183.575595,"PLN":4.568885,"PYG":8017.030666,"QAR":4.367218,"RON":4.925903,' \
+b'"RSD":117.422347,"RUB":89.651326,"RWF":1183.857083,"SAR":4.498509,"SBD":9.545998,' \
+b'"SCR":17.955371,"SDG":470.184044,"SEK":10.188038,"SGD":1.602226,"SHP":0.87125,' \
+b'"SLL":12276.369689,"SOS":700.479288,"SRD":16.977034,"STD":24863.563207,"SVC":10.49475,' \
+b'"SYP":1508.389144,"SZL":17.236435,"THB":37.363063,"TJS":13.680889,"TMT":4.210069,' \
+b'"TND":3.297327,"TOP":2.724548,"TRY":9.988061,"TTD":8.142165,"TWD":33.55463,"TZS":2781.524441,' \
+b'"UAH":33.248518,"UGX":4272.825754,"USD":1.19945,"UYU":52.642148,"UZS":12612.216426,' \
+b'"VEF":256478645698.76993,"VND":27661.114613,"VUV":131.386382,"WST":3.03668,"XAF":654.835044,' \
+b'"XAG":0.045344,"XAU":0.000672,"XCD":3.241574,"XDR":0.837765,"XOF":656.098349,"XPF":119.704045,' \
+b'"YER":300.271659,"ZAR":17.240701,"ZMK":10796.486936,"ZMW":26.81592,"ZWL":386.223112}}'
+
+# -------------------------------------------------------
+
+"""
+# во всей задаче осталось заменить эти 2 строки
+# r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+# total_base = json.loads(r.content)[keys[base]] * amount
+
+
+import requests
+import json
+
+quote = 'JPY' # это 1 ещиница валюты, которой определяем стоимость
+base = 'USD'
+
+
+
+# r = requests.get(f'http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7')
+
+# r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+# total_base = json.loads(r.content)[keys[base]] * amount
+
+# print(json.loads(r.content)['rates']['JPY'])
+
+r = requests.get(f'http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7&symbols={quote},{base}')
+print(r.content)
+
+total_base = json.loads(r.content)['rates'][base] / json.loads(r.content)['rates'][quote] #* amount
+print(total_base)
+
+# print(json.loads(r.content)['rates'][quote])
+# print(json.loads(r.content)['rates'][base])
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+# -------------------------------------------------------
+
+
+
+
+
+
+
+
+# -------------------------------------------------------
 
 
 
