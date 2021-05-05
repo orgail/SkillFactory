@@ -30,6 +30,6 @@ class Converter:
             raise ConvertionException(f'Не удалось обработать количество {amount}. Должно быть число.')
 
         r = requests.get(f'http://api.exchangeratesapi.io/v1/latest?access_key=507452a90d133eeff4c02a5be7028ca7&symbols={quote_ticker},{base_ticker}')
-        total_base = (json.loads(r.content)['rates'][base_ticker]) / (json.loads(r.content)['rates'][quote_ticker]) * amount
+        total_base = json.loads(r.content)['rates'][base_ticker] / json.loads(r.content)['rates'][quote_ticker] * amount
 
         return total_base
