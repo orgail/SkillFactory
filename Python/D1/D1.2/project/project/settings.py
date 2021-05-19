@@ -56,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
