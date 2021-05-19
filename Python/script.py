@@ -6,6 +6,9 @@ C:\GitHub\SkillFactory\SkillFactory\Python>cd c:\python38
 
 python.exe -m pip install --upgrade pip
 
+
+
+
 Database Name = home
 Pk9O65wTKpc7G7EwYDm3ep8tNgn07OO0
 Endpoint
@@ -37,6 +40,40 @@ python -i script.py
 
 
 #----------------------------------------------------------------------------------------
+
+Создаём виртуальное окружение
+# создали проект и папку
+mkdir project
+cd project
+# Ставим окружение
+python -m venv venv
+# Запускаем окружение
+venv\Scripts\activate
+env\Scripts\activate
+
+cd project
+
+# Ставим Django
+pip3 install Django
+
+# Проверяем установилась ли Django
+Python
+import django # Ошибок не будет
+exit() # выходим
+
+После установки Django создаём пустой проект:
+python -m django-admin startproject project
+
+Переходим в папку project в нашем терминале или cmd (если вы на Windows) и прописываем:
+python manage.py runserver
+
+Теперь мы можем увидеть сообщение, что наше веб-приложение готово к работе. Открываем любой браузер и переходим по адресу http://127.0.0.1:8000/
+
+
+
+
+#----------------------------------------------------------------------------------------
+
 
 # print("Hello World")
 

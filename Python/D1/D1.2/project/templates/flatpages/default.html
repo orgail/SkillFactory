@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ flatpage.title }}{% endblock title %}</title>
+</head>
+<body>
+    <a href="/contacts">Contacts</a>
+    <a href="/about">About</a>
+    <a href="/smile">Улыбочку</a>
+    <a href="/smile-short">Частушки</a>
+    <a href="/smile-long">Песни-потешки</a>
+    <hr>
+    {% block content %}
+    {{ flatpage.title }}
+    {{ flatpage.content }}
+    {% endblock content %}
+
+</body>
+</html>
