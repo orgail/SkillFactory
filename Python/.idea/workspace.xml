@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e529238-ad40-4994-bd60-ccb0bbb4ab62" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/D1/D1.2/project/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/D1/D1.2/project/project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/default.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/smile-short.html" beforeDir="false" afterPath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/smile-short.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/smile.html" beforeDir="false" afterPath="$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/smile.html" afterDir="false" />
-    </list>
+    <list default="true" id="8e529238-ad40-4994-bd60-ccb0bbb4ab62" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +82,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/default.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
+            <state relative-caret-position="538">
               <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
             </state>
           </provider>
@@ -225,38 +220,6 @@
               <item name="Python" type="462c0819:PsiDirectoryNode" />
               <item name="D1" type="462c0819:PsiDirectoryNode" />
               <item name="D1.2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python" type="462c0819:PsiDirectoryNode" />
-              <item name="D1" type="462c0819:PsiDirectoryNode" />
-              <item name="D1.2" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python" type="462c0819:PsiDirectoryNode" />
-              <item name="D1" type="462c0819:PsiDirectoryNode" />
-              <item name="D1.2" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="fpages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python" type="462c0819:PsiDirectoryNode" />
-              <item name="D1" type="462c0819:PsiDirectoryNode" />
-              <item name="D1.2" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python" type="462c0819:PsiDirectoryNode" />
-              <item name="D1" type="462c0819:PsiDirectoryNode" />
-              <item name="D1.2" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="flatpages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Python" type="b2602c69:ProjectViewProjectNode" />
@@ -554,18 +517,18 @@
       <workItem from="1620758240046" duration="1430000" />
       <workItem from="1621270076684" duration="5117000" />
       <workItem from="1621358350321" duration="7124000" />
-      <workItem from="1621400923095" duration="4481000" />
+      <workItem from="1621400923095" duration="5692000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210070000" />
+    <option name="totallyTimeSpent" value="211281000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13219616" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13219616" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -579,7 +542,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32981783" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32981783" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32981783" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32981783" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32981783" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -917,7 +880,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/D1/D1.2/project/templates/flatpages/default.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="538">
           <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
         </state>
       </provider>
