@@ -1,0 +1,95 @@
+from django.contrib.auth.models import User
+from news.models import *
+
+# Создать двух пользователей (с помощью метода User.objects.create_user).
+user1 = User.objects.create_user(username="IKulibin",first_name="Иван",last_name="Кулибин",)
+user2 = User.objects.create_user(username="IPetrov",first_name="Иван",last_name="Петров",)
+
+# Создать два объекта модели Author, связанные с пользователями.
+author1 = Author.objects.create(author=user1)
+author2 = Author.objects.create(author=user2)
+
+# Добавить 4 категории в модель Category.
+category_cinema = Category.objects.create(category_name="Кино")
+category_sport = Category.objects.create(category_name="Спорт")
+category_auto = Category.objects.create(category_name="Авто")
+category_children = Category.objects.create(category_name="Дети")
+
+# Добавить 2 статьи и 1 новость.
+article_1 = Post.objects.create(post_author = author1, post_choise = 'AR', post_name = 'Artcile 1 title', post_text = 'Article 1 text')
+article_2 = Post.objects.create(post_author = author2, post_choise = 'AR', post_name = 'Artcile 2 title', post_text = 'Article 2 text')
+news_1 = Post.objects.create(post_author = author1, post_choise = 'NW', post_name = 'News title', post_text = 'News text')
+
+
+# Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
+article_1.post_category.add(category_cinema)
+article_1.post_category.add(category_sport)
+article_2.post_category.add(category_cinema)
+article_2.post_category.add(category_auto)
+news_1.post_category.add(category_sport)
+news_1.post_category.add(category_children)
+
+
+# Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
+comment_1 = Comment.objects.create(comment_post = news_1, comment_user = user2, comment_text = 'Комментарий 1')
+comment_2 = Comment.objects.create(comment_post = news_1, comment_user = user2, comment_text = 'Комментарий 2')
+comment_3 = Comment.objects.create(comment_post = article_1, comment_user = user1, comment_text = 'Комментарий 3')
+comment_4 = Comment.objects.create(comment_post = article_1, comment_user = user1, comment_text = 'Комментарий 4')
+comment_5 = Comment.objects.create(comment_post = article_2, comment_user = user2, comment_text = 'Комментарий 5')
+
+
+# Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
+news_1.like()
+news_1.like()
+news_1.dislike()
+article_1.like()
+article_1.like()
+article_1.dislike()
+article_2.dislike()
+article_2.dislike()
+comment_1.like()
+comment_1.like()
+comment_1.like()
+comment_1.dislike()
+comment_2.like()
+comment_2.like()
+comment_2.dislike()
+comment_3.like()
+comment_3.like()
+comment_3.dislike()
+comment_4.like()
+comment_4.like()
+comment_4.like()
+comment_4.dislike()
+
+
+# Обновить рейтинги пользователей.
+author1.update_rating()
+author2.update_rating()
+
+# Вывести username и рейтинг лучшего пользователя:
+usernames_list = Author.objects.all().order_by('-author_rating').filter().values()
+username_query = User.objects.filter(id = usernames_list[0]['user_id']).values('username')
+user_name_query[0]['username'], usernames_list[0]['user_rating']
+
+# Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи,
+# основываясь на лайках/дислайках к этой статье.
+post_list = Post.objects.all().order_by('-post_rating').filter().values()
+author_user_id = Author.objects.filter(id = post_list[0]['author_id']).values('user_id')
+better_post_object = Post.objects.get(id = post_list[0]['id'])
+better_post_user = User.objects.filter(id = author_user_id[0]['user_id']).values('username')
+better_post_date = post_list[0]['date_in']
+better_post_rating = post_list[0]['post_rating']
+better_post_title = post_list[0]['post_name']
+better_post_preview = better_post_objects.preview()
+
+better_post_list = [better_post_date, better_post_user[0]['username'], better_post_rating, better_post_title, better_post_preview]
+
+for post_name in better_post_list:
+	print(post_name)
+
+
+# Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+better_post_comments = Comments.objects.filter(post_id = better_post_objects).values('comment_date_in', 'user_id', 'comment_rating', 'comment_text')
+for dict in better_post_comments:
+	print(dict['comment_date_in'], User.objects.filter(id = 2).values('username'), dict['comment_rating'], dict['comment_text'])
