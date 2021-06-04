@@ -1,28 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 
 class Author(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    author = models.OneToOneField(User, on_delete=models.CASCADE)# Здесь id из таблицы User
     author_rating = models.IntegerField(default=0)
 
     def update_rating(self):
-        post_author = Post.objects.filter(post_author = self.id, post_choise = self.author)
-        total_post_rating = 0
-        for post in post_author:
-            total_post_rating += post.post_rating * 3
+        total_rating = 0
+        post_rating = Post.objects.filter(post_author = self.id).aggregate(post_rate = Sum('post_rating'))
+        total_rating += post_rating.get('post_rate') * 3
 
-        total_author_comment_rating = 0
-        for comments in Comment.objects.filter(comment_user = self.author):
-            total_author_comment_rating += comments.comment_rating
+        comment_rating = Comment.objects.filter(comment_user=self.id).aggregate(comment_rate=Sum('comment_rating'))
+        if (list(comment_rating.values())[0]) is not None:
+            total_rating += comment_rating.get('comment_rate')
 
-        total_author_post_rating = 0
-        for comments in Comment.objects.filter(comment_post = post_author):
-            total_author_post_rating += comments.comment_rating
+        comment_post_rating = Comment.objects.filter(comment_post__post_author=self.id).aggregate(comment_rate=Sum('comment_rating'))
+        if (list(comment_post_rating.values())[0]) is not None:
+            total_rating += comment_post_rating.get('comment_rate')
 
-        self.author_rating = total_post_rating + total_author_comment_rating + total_author_post_rating
+        self.author_rating = total_rating
         self.save()
-
 
     def __str__(self):
         return str(self.author)

@@ -5,6 +5,18 @@ from news.models import *
 user1 = User.objects.create_user(username="IKulibin",first_name="Иван",last_name="Кулибин",)
 user2 = User.objects.create_user(username="IPetrov",first_name="Иван",last_name="Петров",)
 
+# Дополнительно - Посмотрим пользователей
+User.objects.all()
+Author.objects.all()
+
+получим датасет автора 1 и 2
+Author.objects.filter(author__id = 6).values("author", "author_rating")
+
+посмотрим всех авторов:
+Author.objects.all().values("author__username", "author_rating")
+
+
+
 # Создать два объекта модели Author, связанные с пользователями.
 author1 = Author.objects.create(author=user1)
 author2 = Author.objects.create(author=user2)
@@ -15,10 +27,16 @@ category_sport = Category.objects.create(category_name="Спорт")
 category_auto = Category.objects.create(category_name="Авто")
 category_children = Category.objects.create(category_name="Дети")
 
+посмотрим все категории:
+Category.objects.all().values('category_name')
+
+
+
 # Добавить 2 статьи и 1 новость.
 article_1 = Post.objects.create(post_author = author1, post_choise = 'AR', post_name = 'Artcile 1 title', post_text = 'Article 1 text')
 article_2 = Post.objects.create(post_author = author2, post_choise = 'AR', post_name = 'Artcile 2 title', post_text = 'Article 2 text')
 news_1 = Post.objects.create(post_author = author1, post_choise = 'NW', post_name = 'News title', post_text = 'News text')
+
 
 
 # Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
@@ -30,6 +48,9 @@ news_1.post_category.add(category_sport)
 news_1.post_category.add(category_children)
 
 
+проверяем категории статей:
+Post.objects.all().values('post_name', 'post_category__category_name')# работает
+
 # Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
 comment_1 = Comment.objects.create(comment_post = news_1, comment_user = user2, comment_text = 'Комментарий 1')
 comment_2 = Comment.objects.create(comment_post = news_1, comment_user = user2, comment_text = 'Комментарий 2')
@@ -37,6 +58,8 @@ comment_3 = Comment.objects.create(comment_post = article_1, comment_user = user
 comment_4 = Comment.objects.create(comment_post = article_1, comment_user = user1, comment_text = 'Комментарий 4')
 comment_5 = Comment.objects.create(comment_post = article_2, comment_user = user2, comment_text = 'Комментарий 5')
 
+# проверяем комментарии:
+Comment.objects.all().values('comment_post__post_name', 'comment_text', 'comment_rating')
 
 # Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
 news_1.like()
@@ -62,15 +85,40 @@ comment_4.like()
 comment_4.like()
 comment_4.dislike()
 
+# получаем экземляр класса и ставим ему лайк
+comment_5 = Comment.objects.get(id = 5)
+print(type(comment_5))
+comment_5.like()
+comment_5.like()
+comment_5.like()
+
+# проверяем рейтинги комментариев:
+Comment.objects.all().values('comment_post__post_name', 'comment_text', 'comment_rating')
 
 # Обновить рейтинги пользователей.
-author1.update_rating()
-author2.update_rating()
+получим объекты автора 1 и 2
+author_1 = Author.objects.get(id = 1)
+author_2 = Author.objects.get(id = 2)
+
+# Проверим авторов
+print(author_1)
+print(author_2)
+
+# Обновим рейтинг
+author_1.update_rating()
+author_2.update_rating()
+
 
 # Вывести username и рейтинг лучшего пользователя:
 usernames_list = Author.objects.all().order_by('-author_rating').filter().values()
-username_query = User.objects.filter(id = usernames_list[0]['user_id']).values('username')
+username_query = User.objects.filter(id = usernames_list[0]['id']).values('username')
 user_name_query[0]['username'], usernames_list[0]['user_rating']
+
+
+Author.objects.all().order_by('-author_rating').filter().values()[0]
+Author.objects.all().order_by('-author_rating').filter().values()[0].values()
+Author.objects.all().order_by('-author_rating').filter().values()[0]['id'] # работает
+
 
 # Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи,
 # основываясь на лайках/дислайках к этой статье.
@@ -93,3 +141,54 @@ for post_name in better_post_list:
 better_post_comments = Comments.objects.filter(post_id = better_post_objects).values('comment_date_in', 'user_id', 'comment_rating', 'comment_text')
 for dict in better_post_comments:
 	print(dict['comment_date_in'], User.objects.filter(id = 2).values('username'), dict['comment_rating'], dict['comment_text'])
+
+
+
+
+
+
+
+print(person)
+
+person.id
+person.full_name
+person.position
+person.get_position_display()
+
+cashiers = Staff.objects.get(position = Staff.cashier)
+
+так получим QuerySet
+Его можно изменить, переопределив метод __str__(self) соответствующей модели
+Staff.objects.filter(position = Staff.cashier)
+
+преобразовать QuerySet в список
+cashiers = Staff.objects.filter(position = Staff.cashier)
+cashiers.values("full_name", "labor_contract")
+
+cashiers = Staff.objects.filter(position = Staff.cashier)
+cashiers.values("full_name", "labor_contract", "position")
+
+cashiers = Staff.objects.filter(labor_contract = 1254)
+
+Staff.objects.filter(labor_contract = 1254).values("full_name", "labor_contract", "position")
+
+Product.objects.filter(price__gt = 90.0).values("name")
+
+from products.models import Order
+Order.objects.create(staff = cashier1, take_away = False)
+Order.objects.create(staff = cashier2, take_away = True)
+Order.objects.create(staff = cashier1, take_away = True)
+
+Order.objects.filter(staff__labor_contract = 1754).values("staff__full_name", "take_away")
+
+Product.objects.all().values("name")
+
+ProductOrder.objects.all()
+ProductOrder.objects.all().exists()
+Product.objects.all().order_by('price').values('name', 'price')
+
+Product.objects.all().order_by('-price').values('name', 'price')
+
+
+
+

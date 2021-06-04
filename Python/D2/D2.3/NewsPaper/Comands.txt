@@ -1,0 +1,62 @@
+from products.models import Product
+from products.models import *
+
+cap = Product(name = "Капучино 0.3", price = 99.0)
+cap.save()
+cap_big = Product.objects.create(name = "Капучино 0.4", price = 109.0)
+cashier1 = Staff.objects.create(full_name = "Иванов Иван Иванович",
+                                position = Staff.cashier,
+                                labor_contract = 1754)
+cashier2 = Staff.objects.create(full_name = "Петров Петр Петрович",
+                                position = Staff.cashier,
+                                labor_contract = 4355)
+direct = Staff.objects.create(full_name = "Максимов Максим Максимович",
+                                position = Staff.director,
+                                labor_contract = 1254)
+
+person = Staff.objects.get(labor_contract = 1254)
+
+print(person)
+
+person.id
+person.full_name
+person.position
+person.get_position_display()
+
+cashiers = Staff.objects.get(position = Staff.cashier)
+
+так получим QuerySet
+Его можно изменить, переопределив метод __str__(self) соответствующей модели
+Staff.objects.filter(position = Staff.cashier)
+
+преобразовать QuerySet в список
+cashiers = Staff.objects.filter(position = Staff.cashier)
+cashiers.values("full_name", "labor_contract")
+
+cashiers = Staff.objects.filter(position = Staff.cashier)
+cashiers.values("full_name", "labor_contract", "position")
+
+cashiers = Staff.objects.filter(labor_contract = 1254)
+
+Staff.objects.filter(labor_contract = 1254).values("full_name", "labor_contract", "position")
+
+Product.objects.filter(price__gt = 90.0).values("name")
+
+from products.models import Order
+Order.objects.create(staff = cashier1, take_away = False)
+Order.objects.create(staff = cashier2, take_away = True)
+Order.objects.create(staff = cashier1, take_away = True)
+
+Order.objects.filter(staff__labor_contract = 1754).values("staff__full_name", "take_away")
+
+Product.objects.all().values("name")
+
+ProductOrder.objects.all()
+ProductOrder.objects.all().exists()
+Product.objects.all().order_by('price').values('name', 'price')
+
+Product.objects.all().order_by('-price').values('name', 'price')
+
+
+
+
