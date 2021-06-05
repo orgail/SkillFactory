@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from news.models import *
 
+
 # Создать двух пользователей (с помощью метода User.objects.create_user).
 user1 = User.objects.create_user(username="IKulibin",first_name="Иван",last_name="Кулибин",)
 user2 = User.objects.create_user(username="IPetrov",first_name="Иван",last_name="Петров",)
@@ -92,6 +93,11 @@ comment_5.like()
 comment_5.like()
 comment_5.like()
 
+article_1 = Post.objects.get(id = 1)
+article_1.like()
+
+
+
 # проверяем рейтинги комментариев:
 Comment.objects.all().values('comment_post__post_name', 'comment_text', 'comment_rating')
 
@@ -114,81 +120,53 @@ usernames_list = Author.objects.all().order_by('-author_rating').filter().values
 username_query = User.objects.filter(id = usernames_list[0]['id']).values('username')
 user_name_query[0]['username'], usernames_list[0]['user_rating']
 
+# Получаем id автора с максимальным рейтингом:
+_author_id = list(Author.objects.all().order_by('-author_rating').values_list('author_id', flat=True))[0]
+# Выводим username лучшего пользователя
+User.objects.filter(id = _author_id).values('username')
+# Выводим рейтинг лучшего пользователя
+Author.objects.filter(author_id = _author_id).values('author_rating')
 
-Author.objects.all().order_by('-author_rating').filter().values()[0]
-Author.objects.all().order_by('-author_rating').filter().values()[0].values()
-Author.objects.all().order_by('-author_rating').filter().values()[0]['id'] # работает
+
+# Возьмём лучшую статью по рейтингу
+post_best = 0
+post_best = list(Post.objects.all().order_by('-post_rating').values_list('id', flat=True))[0]
+# Проверим что нашлось:
+print(post_best)
+print(type(post_best))  # <class 'int'>
+
+# Выводим
+if post_best !=0:
+# дату добавления
+Post.objects.filter(id = post_best).values('date_in')
+# username автора
+Post.objects.filter(id = post_best).values('post_author__author__username')
+# рейтинг
+Post.objects.filter(id = post_best).values('post_rating')
+# заголовок
+Post.objects.filter(id = post_best).values('post_name')
+# превью статьи
+Post.objects.get(id = post_best).preview()
 
 
-# Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи,
-# основываясь на лайках/дислайках к этой статье.
+# Второй вариант:
+# По стравнению с первым положительно - меньше обращений к базе данных
+# отрицательно - начитываем в переменную - объект QuerySet - все статьи с сайта
+# Возьмём все статьи, отсортируем по рейтингу и положим в объект QuerySet
 post_list = Post.objects.all().order_by('-post_rating').filter().values()
-author_user_id = Author.objects.filter(id = post_list[0]['author_id']).values('user_id')
-better_post_object = Post.objects.get(id = post_list[0]['id'])
-better_post_user = User.objects.filter(id = author_user_id[0]['user_id']).values('username')
-better_post_date = post_list[0]['date_in']
-better_post_rating = post_list[0]['post_rating']
-better_post_title = post_list[0]['post_name']
-better_post_preview = better_post_objects.preview()
-
-better_post_list = [better_post_date, better_post_user[0]['username'], better_post_rating, better_post_title, better_post_preview]
-
-for post_name in better_post_list:
-	print(post_name)
+# дату добавления
+post_list[0]['date_in']
+# username автора
+Post.objects.filter(id = post_list[0]['id']).values('post_author__author__username')
+# рейтинг
+post_list[0]['post_rating']
+# заголовок
+post_list[0]['post_name']
+# превью статьи
+Post.objects.get(id = post_list[0]['id']).preview()
 
 
 # Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
-better_post_comments = Comments.objects.filter(post_id = better_post_objects).values('comment_date_in', 'user_id', 'comment_rating', 'comment_text')
-for dict in better_post_comments:
-	print(dict['comment_date_in'], User.objects.filter(id = 2).values('username'), dict['comment_rating'], dict['comment_text'])
-
-
-
-
-
-
-
-print(person)
-
-person.id
-person.full_name
-person.position
-person.get_position_display()
-
-cashiers = Staff.objects.get(position = Staff.cashier)
-
-так получим QuerySet
-Его можно изменить, переопределив метод __str__(self) соответствующей модели
-Staff.objects.filter(position = Staff.cashier)
-
-преобразовать QuerySet в список
-cashiers = Staff.objects.filter(position = Staff.cashier)
-cashiers.values("full_name", "labor_contract")
-
-cashiers = Staff.objects.filter(position = Staff.cashier)
-cashiers.values("full_name", "labor_contract", "position")
-
-cashiers = Staff.objects.filter(labor_contract = 1254)
-
-Staff.objects.filter(labor_contract = 1254).values("full_name", "labor_contract", "position")
-
-Product.objects.filter(price__gt = 90.0).values("name")
-
-from products.models import Order
-Order.objects.create(staff = cashier1, take_away = False)
-Order.objects.create(staff = cashier2, take_away = True)
-Order.objects.create(staff = cashier1, take_away = True)
-
-Order.objects.filter(staff__labor_contract = 1754).values("staff__full_name", "take_away")
-
-Product.objects.all().values("name")
-
-ProductOrder.objects.all()
-ProductOrder.objects.all().exists()
-Product.objects.all().order_by('price').values('name', 'price')
-
-Product.objects.all().order_by('-price').values('name', 'price')
-
-
-
-
+post_best_all_comments = Comment.objects.filter(comment_post = post_best).values('comment_date_in', 'comment_user__username', 'comment_rating', 'comment_text')
+for dict in post_best_all_comments:
+	print(dict['comment_date_in'], dict['comment_user__username'], dict['comment_rating'], dict['comment_text'])
