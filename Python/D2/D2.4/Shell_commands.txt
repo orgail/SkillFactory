@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from news.models import *
+from simpleapp.models import *
 
 
 # Создать двух пользователей (с помощью метода User.objects.create_user).
